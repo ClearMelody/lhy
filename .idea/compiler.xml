@@ -10,7 +10,9 @@
         <module name="camping-euraek-server" />
         <module name="camping-fegin" />
         <module name="camping-order-client" />
+        <module name="camping-product-client" />
         <module name="camping-ribbon" />
+        <module name="camping-users-client" />
         <module name="camping-zuul" />
         <module name="gocamping" />
       </profile>

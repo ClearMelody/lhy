@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: 9003
 eureka:
   client:
     serviceUrl: #服务中心的ip和端口号和路径
@@ -27,7 +27,7 @@ spring:
 
   #服务的名称
   application:
-    name: service-order  #这个是以后提供给调用者的名字，只要调用改名字就可以自动访问到  服务的ip和端口号和路径
+    name: service-users  #这个是以后提供给调用者的名字，只要调用改名字就可以自动访问到  服务的ip和端口号和路径
   cloud:
     config:
       label: master #指明远程仓库的分支

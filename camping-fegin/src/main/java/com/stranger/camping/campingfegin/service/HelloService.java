@@ -6,11 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 //通过@ FeignClient（“服务名”），来指定调用哪个逻辑服务ip和端口
-@FeignClient(value = "SERVICE-HI", fallback = HelloServiceHystrix.class)//加入熔断机制后，服务名一起写进去了
+@FeignClient(value = "SERVICE-ORDER", fallback = HelloServiceHystrix.class)//加入熔断机制后，服务名一起写进去了
 //@FeignClient("SERVICE-HI")//服务的名称（相当于IP和端口）
 public interface HelloService {
     @RequestMapping("/hi")//来指定调用哪个逻辑服务controller的路径
@@ -31,6 +32,8 @@ class HelloServiceHystrix implements HelloService {
 
     @Override
     public List findall() {
-        return null;
+        List list=new ArrayList();
+        list.set(1,"服务器出现故障，断开连接");
+        return list;
     }
 }

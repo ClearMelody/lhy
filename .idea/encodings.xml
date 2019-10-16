@@ -8,8 +8,10 @@
     <file url="file://$PROJECT_DIR$/camping-fegin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/camping-feign" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/camping-order-client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/camping-product-client" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/camping-ribbon" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/camping-ribbon" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/camping-users-client" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/camping-zuul" charset="UTF-8" />
   </component>
 </project>

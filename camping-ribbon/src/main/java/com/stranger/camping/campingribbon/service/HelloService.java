@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,28 +13,30 @@ public class HelloService {
 //    通过之前注入ioc容器的restTemplate来消费service-hi服务的“/hi”接口
     @Autowired
     private RestTemplate restTemplate;
-    @HystrixCommand(fallbackMethod = "helloError1") /*@HystrixCommand注解。
     @HystrixCommand(fallbackMethod = "helloError") /*@HystrixCommand注解。
                              该注解对该方法创建了熔断器的功能，并指定了fallbackMethod熔断方法helloError()，
                              熔断方法直接返回了一个字符串
                                      */
 
     public String hello(String name){
-        return restTemplate.getForObject("http://SERVICE-HI/hi?name=" + name, String.class);
-    }          //在这里我们直接用的程序名SERVICE-HI/hi替代了具体的url地址，拼接上路径以此来访问逻辑业务，对该业务做负载均衡
+        return restTemplate.getForObject("http://SERVICE-ORDER/hi?name=" + name, String.class);
+  }          //在这里我们直接用的程序名SERVICE-HI/hi替代了具体的url地址，拼接上路径以此来访问逻辑业务，对该业务做负载均衡
                 // 这说明当我们通过调用restTemplate.getForObject(“http://SERVICE-HI/hi?name=”+name,String.class)方法时，
                 // 已经做了负载均衡，访问了不同的端口的服务实例。但是每个端口服务实例得到的结果是一致的，不要误解
+     public String helloError(String name) {
+                    return "hi,"+name+",sorry,error!";
+                }
 
+
+    @HystrixCommand(fallbackMethod = "helloError1") //@HystrixCommand注解。
     public List findall() {
-        return restTemplate.getForObject("http://SERVICE-HI/findall", List.class);
+        return restTemplate.getForObject("http://SERVICE-ORDER/findall", List.class);
     }
 
-    public String helloError(String name) {
-        return "hi,"+name+",sorry,error!";
-    }
-
-    public String helloError1(String name) {
-        return "出现错误";
+    public List helloError1() {
+        List list=new ArrayList();
+        list.set(1,"服务器出现故障，断开连接");
+        return list;
     }
 
 
