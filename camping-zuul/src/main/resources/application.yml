@@ -1,0 +1,22 @@
+server:
+  port: 9301
+eureka:
+  client:
+    serviceUrl: #服务中心的ip和端口号和路径
+      defaultZone: http://admin:123456@peer1:8761/eureka/,http://admin:123456@peer2:8762/eureka/
+#服务的名称
+spring:
+  application:
+    name: service-zuul  #这个是以后提供给调用者的名字，只要调用改名字就可以自动访问到  服务的ip和端口号和路径
+#  链路追踪
+  zipkin:
+    base-url: http://localhost:9411
+    #网管服务
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**   #以api-a开开始的访问路径全部负载到service-ribbon
+      serviceId: service-ribbon
+    api-b:
+      path: /api-b/**    #以api-开开始的访问路径全部负载到service-feign
+      serviceId: service-feign

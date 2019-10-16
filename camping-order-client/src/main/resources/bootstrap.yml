@@ -1,0 +1,79 @@
+server:
+  port: 9001
+eureka:
+  client:
+    serviceUrl: #服务中心的ip和端口号和路径
+      defaultZone: http://admin:123456@peer1:8761/eureka/,http://admin:123456@peer2:8762/eureka/
+#页面的前缀后缀
+spring:
+  freemarker:
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+  #  连接池相关配置
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/wfx?useSSL=false&serverTimezone=UTC #连接数据库的地址
+      username: root #数据库的登录帐号
+      password: root #数据库的登录密码
+      driverClassName: com.mysql.jdbc.Driver
+      initialSize: 5  #初始建立连接数量
+      minIdle: 5  #最小连接数量
+      maxActive: 20 #最大连接数量
+      maxWait: 10000  #获取连接最大等待时间，毫秒
+      testOnBorrow: true #申请连接时检测连接是否有效
+      testOnReturn: false #归还连接时检测连接是否有效
+      timeBetweenEvictionRunsMillis: 60000 #配置间隔检测连接是否有效的时间（单位是毫秒）
+      minEvictableIdleTimeMillis: 300000  #连接在连接池的最小生存时间（毫秒）
+
+  #服务的名称
+  application:
+    name: service-hi  #这个是以后提供给调用者的名字，只要调用改名字就可以自动访问到  服务的ip和端口号和路径
+  cloud:
+    config:
+      label: master #指明远程仓库的分支
+      profile: dev  # spring.cloud.config.profile
+                    #  dev开发环境配置文件
+                    #  test测试环境
+                    #   pro正式环境
+      name: springcloud
+      discovery:
+        enabled: true
+        service-id: config-server #高可用的配置中心
+        #uri: http://localhost:8888/host=localhost 指明配置服务中心的网址
+   #BUS相关配置
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+#消息队列
+  rabbitmq:
+    host: localhost #地址
+    port: 15672      #端口
+    username: guest   #用户
+    password: guest    #密码
+    #链路追踪
+  zipkin:
+    base-url: http://localhost:9411  #指定地址IP和端口号
+#    在spring Cloud为F版本的时候，已经不需要自己构建Zipkin Server了，只需要下载jar运行即可 java -jar zipkin-server-2.10.1-exec.jar即可
+management:   #bus相关
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh  #另外，/actuator/bus-refresh接口可以指定服务，即使用"destination"参数，
+                               #比如 “/actuator/bus-refresh?destination=customers:**”
+                              #即刷新服务名为customers的所有服务。默认是需要一个个启动的
+
+
+#  当git文件更改的时候，通过pc端用post 方式向端口为9001即服务的config-client发送请求/bus/refresh／；
+#  此时8882端口会发送一个消息，由消息总线向其他服务传递，从而使整个微服务集群都达到更新配置文件。
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml,classpath*:**/*Mapper.xml
+  #IDENTITY: MYSQL #取回主键的方式
+  #notEmpty: false #insert和update中，是否判断字符串类型!=''
+  configuration:
+    #进行自动映射时，数据以下划线命名，如数据库返回的"order_address"命名字段是否映射为class的"orderAddress"字段。默认为false
+    map-underscore-to-camel-case: true
+    # 输出SQL执行语句 （log4j2本身可以输出sql语句）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #这种带结果集
+  type-aliases-package: com.example.myclient.model
