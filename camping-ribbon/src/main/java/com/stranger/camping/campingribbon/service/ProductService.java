@@ -31,4 +31,12 @@ public class ProductService {
 
         return "服务器故障,无法查询";
     }
+
+    @HystrixCommand(fallbackMethod="Error2") //@HystrixCommand注解。
+    public String send(String orderDesc, Long productId) {
+        return restTemplate.getForObject("http://SERVICE-PRODUCT/send?name="+orderDesc+"&id="+productId, String.class);
+    }
+    public String Error2(String orderDesc, Long productId) {
+        return "服务器故障,无法查询";
+    }
 }

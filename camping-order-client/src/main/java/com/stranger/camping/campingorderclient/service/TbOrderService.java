@@ -22,9 +22,9 @@ public class TbOrderService {
         example.and().andEqualTo("orderDesc", tbOrder.getOrderDesc());
         example.and().andEqualTo("productId", tbOrder.getProductId());
         List<TbOrder> tbOrders = tbOrderDao.selectByExample(example);
-        if (tbOrders!=null){
-            return "本次抢购成功";
+        if (tbOrders.size()>0){
+            return "本次抢购成功，请尽快到购物车付款";
         }
-        return "本次抢购失败";
+        return "本次抢购失败，感谢您的参与" ;
     }
 }

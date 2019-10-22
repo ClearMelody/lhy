@@ -1,0 +1,17 @@
+﻿<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <base th:href="${#request.getContextPath()}+'/'">
+    <title>抢购结果</title>
+</head>
+<body>
+<div>
+    <form action="/send" method="get">
+        <input type="text" th:name="orderDesc">
+        <input type="text" th:name="productId">
+        <input type="submit" >模拟提交抢购商品
+    </form>
+
+</div>
+</body>
+</html>

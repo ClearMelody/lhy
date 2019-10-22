@@ -16,7 +16,6 @@ public class ProductController {
     @RequestMapping("/findbyid")
     public String findbyid(Integer id, Model model){
         Map map = productService.findbyid(id);
-
         Object product = map.get("product");
         ArrayList campFacilities =(ArrayList) map.get("campFacilities");
         Object seller = map.get("seller");
@@ -36,4 +35,24 @@ public class ProductController {
         model.addAttribute("s",s);
         return  "buy";
     }
+
+
+    @RequestMapping("/testgo")
+    public String  testgo (){
+       return "activity";
+    }
+
+    @RequestMapping("/send")
+    public String  send (String orderDesc,Long productId){
+        String send = productService.send(orderDesc, productId);
+        if(send.equals("fail")){
+            return "redirect:http://localhost:9001/hi";
+
+        }else {
+            return "redirect:http://localhost:9301/select?orderDesc=" + orderDesc + "&productId=" + productId;
+
+        }
+
+    }
+
 }

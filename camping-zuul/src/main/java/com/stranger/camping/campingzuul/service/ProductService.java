@@ -18,4 +18,8 @@ public class ProductService {
     public String select(String orderDesc, Long productId) {
         return restTemplate.getForObject("http://SERVICE-RIBBON/select?orderDesc="+orderDesc+"&productId="+productId, String.class);
     }
+
+    public String send(String orderDesc, Long productId) {
+        return restTemplate.getForObject("http://SERVICE-RIBBON/send?orderDesc="+orderDesc+"&productId="+productId, String.class);
+    }
 }

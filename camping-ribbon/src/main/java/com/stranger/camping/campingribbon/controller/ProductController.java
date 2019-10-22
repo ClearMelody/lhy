@@ -24,6 +24,13 @@ public class ProductController {
 
         return  map;
     }
+    @RequestMapping("/send")
+    public String  send (String orderDesc, Long productId){
+        String send = productService.send(orderDesc, productId);
+        return send;
+
+    }
+
     @RequestMapping("/select")
     public String  selectorder (String orderDesc, Long productId){
         String s=  productService.selectorder(orderDesc,productId);
