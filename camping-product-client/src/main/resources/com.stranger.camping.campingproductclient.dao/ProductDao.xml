@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stranger.camping.campingproductclient.dao.ProductDao">  <!--操作接口mapper层-->
+
+    <resultMap id="TbOrderUsersMap" type="com.stranger.camping.campingproductclient.model.Product"><!--type指返回的类型，指向具体实体类-->
+        <id property="id" column="id" javaType="Long"></id>
+        <result property="productName" column="product_name" javaType="String"></result>
+        <result property="productAddress" column="product_address" javaType="String"></result>
+        <result property="productPrice" column="product_price" javaType="Double"></result>
+        <result property="sellerId" column="seller_id" javaType="Long"></result>
+        <result property="productState" column="product_state" javaType="Long"></result>
+        <result property="productImg" column="product_img" javaType="String"></result>
+        <result property="pouductImg1" column="product_name" javaType="String"></result>
+        <result property="pouductImg2" column="pouduct_img1" javaType="String"></result>
+        <result property="productDesc" column="pouduct_img2" javaType="String"></result>
+        <result property="typeId" column="type_id" javaType="Long"></result>
+        <result property="businessDate" column="business_date" javaType="String"></result>
+        <result property="openingDate" column="opening_date" javaType="String"></result>
+        <result property="precautions" column="precautions" javaType="String"></result>
+        <result property="campFeatures" column="camp_features" javaType="String"></result>
+        <collection property="list" column="prouduct_id" ofType="com.stranger.camping.campingproductclient.model.HouseType">
+           <!--这里有个巨坑， column="htid"里面的htid记得和改过的别名保持一致，如果还是写id会死的很惨-->
+            <id property="id" column="htid" javaType="Long"></id>
+            <result property="houseName" column="house_name" javaType="String"></result>
+            <result property="standard" column="standard" javaType="String"></result>
+            <result property="breakfast" column="breakfast" javaType="String"></result>
+            <result property="housePrice" column="house_price" javaType="String"></result>
+            <result property="playWay" column="play_way" javaType="Long"></result>
+            <result property="houseImg" column="house_img" javaType="String"></result>
+            <result property="prouductId" column="prouduct_id" javaType="Long"></result>
+        </collection>
+    </resultMap>
+    <!--selectfather操作mapper层的具体方法名-->
+    <select id="findbyid" parameterType="int" resultMap="TbOrderUsersMap">
+select ht.id htid,ht.house_name,ht.standard,ht.breakfast,ht.house_price,ht.play_way,ht.house_img,ht.prouduct_id,p.* from
+  house_type ht,product p where p.id = ht.prouduct_id and  p.id=#{id}
+    </select>
+</mapper>

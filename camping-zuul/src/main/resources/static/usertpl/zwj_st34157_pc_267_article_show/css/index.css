@@ -1,0 +1,501 @@
+/*主体内容*/
+.container {
+	width: 100%;
+	min-width: 1200px;
+	padding-bottom: 40px;
+	background: #f6f6f6; /*新增攻略详情无内容区域背景色*/
+}
+
+/*详情内容*/
+.st-glcon-show {
+	float: left;
+	width: 905px;
+	/*background: #ffffff; /*新增背景色*/
+}
+
+.glcon-advimg {
+	width: 905px;
+	height: 120px;
+	overflow: hidden;
+}
+
+.glcon-advimg>a {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	width: 905px;
+	height: 120px;
+}
+
+.glcon-advimg>a img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.st-gl-article-box {
+	/*width: 833px;
+	/*padding: 20px;*/
+	margin-top: 15px;
+	background: #ffffff; /*新增正文背景色*/
+	/*border: 1px solid #d8d8d8; 去掉边框*/
+}
+
+.article-con {
+	display: block;
+	padding:40px 0; /*新增攻略正文宽度边距*/
+}
+
+.article-con:after,
+.article-con .gl-contxt:after,
+.article-con .article-list:after,
+.xg-lines-box .conlist:after,
+.xg-lines-box .conlist li:after,
+.xg-read-box .conlist:after,
+.gl-user-comment-box li:after,
+.publish-comment-box .comment-msg:after {
+	content: '.';
+	clear: both;
+	display: block;
+	height: 0;
+	overflow: hidden;
+}
+
+.article-con .article-tit {
+    width:835px;
+    padding:10px 35px 0;
+	color: #333;
+	font-size: 22px;
+	text-align: center;
+	font-weight: 500
+}
+/*新增攻略标题 滑到顶部固定*/
+.fixtitle {
+    position: fixed;
+    top: 0px;
+    /*left: 0px;*/
+    z-index: 999;
+	background:#f2f2f2;
+	border-bottom: 3px solid #4a4a49;
+}
+
+.article-con .adta {
+	/*margin-top: 30px;*/
+	text-align: center
+}
+
+.article-con .adta span {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	color: #666;
+	height: 30px;
+	line-height: 30px;
+	margin: 0 35px 0;
+	font-size: 12px
+}
+
+.article-con .adta span i {
+	display: inline-block;
+	vertical-align: middle;
+	margin: -2px 5px 0 0;
+	background: url(../images/index-ico.png) no-repeat;
+}
+
+.article-con .adta span.pl i {
+	width: 18px;
+	height: 12px;
+	background-position: 0 0;
+}
+
+.article-con .adta span.look i {
+	width: 14px;
+	height: 14px;
+	background-position: -25px 0;
+}
+
+.article-summary {
+    color:#000;
+	line-height: 30px; /*修改摘要行距24*/
+	margin-top: 20px;
+	padding: 20px 55px;
+	background: #f2f2f2;
+	font-size: 16px; /*新增摘要字号*/
+}
+
+.article-con .gl-contxt {
+    padding:0 55px;
+	color: #666;/*000*/
+	line-height: 32px; /*修改正文行距24*/
+	margin: 20px 0;
+	font-size:16px; /*新增正文字号*/
+	letter-spacing: 0.333333px; /*字间距*/
+    line-height: 32px;
+}
+
+.article-con .gl-contxt img {
+	max-width: 100%;
+}
+
+.article-con .gl-contxt strong {
+	font-weight: bold !important;
+}
+
+.article-con .gl-contxt i,
+.article-con .gl-contxt em {
+	font-style: italic !important;
+}
+
+.article-con .gl-contxt a {
+	color: #0082dd;
+}
+
+.article-con .gl-contxt a:hover {
+	color: #ff8a00;
+	text-decoration: underline;
+}
+
+.article-con .article-list {
+    padding:20px 55px 0;
+	color: #333;
+	height: 30px;
+	line-height: 30px;
+}
+.article-con .article-list .item{
+    color: #999;
+    max-width: 50%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+}
+.article-con .article-list a.prev {
+	float: right;
+	width:80%; /*新增上一篇宽度*/
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+	/*font-weight: bold;*/
+}
+
+.article-con .article-list a.next {
+	float: right;
+	/*font-weight: bold;*/
+	width:82%; /*新增下一篇宽度*/
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.article-con .article-list a:hover {
+	color: #07cd5a;
+	text-decoration: underline;
+}
+
+.article-source {
+    padding:0 55px 5px;
+	border-bottom: 1px solid #f6f6f6;
+	/*text-align: right; 注销文章来源靠右*/
+	color: #ccc;
+}
+
+
+/*相关推荐*/
+
+.xg-recommend {
+	margin-top: 10px;
+}
+
+.xg-recommend>h3 {
+	font-size: 18px; /*修改“相关攻略”字号 16*/
+	line-height: 46px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.comm-list li {
+	float: left;
+	width: 386px;
+	margin: 0 21px 21px 0;
+}
+
+.comm-list li.mr-0 {
+	margin-right: 0;
+}
+
+.comm-list li .pic {
+	width: 386px;
+	height: 260px;
+	overflow: hidden;
+	position: relative;
+}
+
+.comm-list li .pic .img {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	width: 386px;
+	height: 260px;
+}
+
+.comm-list li .pic .img img {
+	max-width: 100%;
+	max-height: 100%;
+	-webkit-transition: all .5s linear;
+	-moz-transition: all .5s linear;
+	-o-transition: all .5s linear;
+	-ms-transition: all 5s linear;
+	transition: all .5s linear;
+}
+
+.comm-list li:hover .pic .img img {
+	transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+}
+
+.comm-list li .tit {
+	display: block;
+	margin: 10px 0;
+	height: 52px;
+	line-height: 26px;
+	overflow: hidden;
+	font-size: 16px;
+	transition: color 0.5s;
+	-webkit-transition: color 0.5s;
+	-moz-transition: color 0.5s;
+	-ms-transition: color 0.5s;
+}
+
+.comm-list li:hover .tit {
+	color: #07cd5a;
+}
+
+.comm-list li .info {
+	height: 22px;
+	overflow: hidden;
+}
+
+.comm-list li .info .des {
+	float: left;
+	width: 50%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #999999;
+	font-size: 14px;
+}
+
+.comm-list li .info .des span {
+	padding-right: 10px;
+}
+
+.comm-list li .info .price {
+	float: right;
+	width: 50%;
+	text-align: right;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #999999;
+	font-size: 14px;
+}
+
+.comm-list li .info .price i {
+	color: #ff6b1a;
+	font-weight: bold;
+}
+
+.comm-list li .info .price em {
+	color: #ff6b1a;
+	font-weight: bold;
+	font-size: 22px;
+	line-height: 18px;
+}
+
+.xg-list li {
+	float: left;
+	width: 285px;  /*修改图片大小289*/
+	margin: 0 19px 19px 0;
+}
+
+.xg-list li .pic {
+	width: 289px;
+	height: 192px;
+}
+
+.xg-list li .pic .img {
+	width: 289px;
+	height: 192px;
+}
+
+.xg-list li .tit {
+	margin: 6px 0;
+	height: 48px;
+	line-height: 24px;
+	font-size: 14px;
+}
+
+.xg-list li .info .price em {
+	font-size: 20px;
+	line-height: 16px;
+}
+
+
+/*评论*/
+
+.gl-user-comment-box {
+	float: left;
+	width: 863px;
+	padding:0px 20px 30px; /*修改10px 20px;*/
+	background:#ffffff; /*新增评论背景色*/
+	/*margin-top: 20px;
+	border: 1px solid #d8d8d8; 注销掉评论顶部距离和外边框*/
+}
+
+.gl-user-comment-box li {
+	padding: 15px 0;
+	border-bottom: 1px solid #d8d8d8
+}
+
+.gl-user-comment-box li:last-child {
+	border-bottom: 0
+}
+
+.gl-user-comment-box li .user-name {
+	float: left;
+	width: 90px;
+	text-align: center
+}
+
+.gl-user-comment-box li .user-name img {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%
+}
+
+.gl-user-comment-box li .user-name span {
+	display: block;
+	height: 24px;
+	line-height: 24px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis
+}
+
+
+.gl-user-comment-box li .user-con {
+	padding-left: 120px
+}
+
+.gl-user-comment-box .quote-item {
+	color: #a0a0a0;
+	padding-bottom: 10px;
+}
+
+.gl-user-comment-box .quote-item .tit {
+	height: 24px;
+	line-height: 24px;
+}
+
+.gl-user-comment-box .quote-item .txt {
+	min-height: 20px;
+	line-height: 20px;
+}
+
+.gl-user-comment-box li .user-con .nr {
+	color: #666;
+	line-height: 20px;
+	font-size: 14px
+}
+
+.gl-user-comment-box li .user-con .cz span {
+	color: #999;
+	float: left
+}
+
+.gl-user-comment-box li .user-con .cz {
+	height: 24px;
+	line-height: 24px;
+	margin-top: 5px;
+}
+
+.gl-user-comment-box li .user-con .cz a {
+	color: #07cd5a;
+	float: right
+}
+
+.publish-comment-box {
+	margin: 50px 0 10px
+}
+
+.publish-comment-box h3 {
+	font-size: 16px
+}
+
+.publish-comment-box .comment-con {
+	margin-top: 10px
+}
+
+.publish-comment-box .comment-con textarea {
+	width: 851px;
+	height: 110px;
+	padding: 5px;
+	border: 1px solid #d8d8d8
+}
+
+.publish-comment-box .comment-msg {
+	margin-top: 10px
+}
+
+.publish-comment-box .comment-msg span.yzm,
+.publish-comment-box .comment-msg span.nc {
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	margin-right: 10px
+}
+
+.publish-comment-box .comment-msg span.yzm img {
+	vertical-align: middle;
+	margin-top: -3px;
+	cursor: pointer
+}
+
+.publish-comment-box .comment-msg span.yzm input,
+.publish-comment-box .comment-msg span.nc input {
+	height: 28px;
+	line-height: 28px;
+	padding: 0 5px;
+	vertical-align: middle;
+	margin-top: -3px;
+	border: 1px solid #d8d8d8
+}
+
+.publish-comment-box .comment-msg a.tj-btn {
+	float: right;
+	color: #fff;
+	width: 110px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	text-align: center;
+	background: #07cd5a;
+}
+
+.publish-comment-box .comment-msg a.dl-btn {
+	float: right;
+	color: #f39700;
+	height: 30px;
+	line-height: 30px;
+	margin-right: 20px
+}
+.gl-user-comment-box .main_mod_page p.page_right{
+	text-align: right;
+}
+
+/*右侧模块*/
+.st-sidebox {
+	float: right;
+	width: 280px;
+}

@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
+@RequestMapping("/product")
 public class HelloController {
     @Autowired
     private HelloService helloService;
@@ -19,9 +20,12 @@ public class HelloController {
     }
 
 
-    @RequestMapping("/findall")
-    public List hellow() {
+    @RequestMapping("/findbyid")
+    public Map hellow() {
         return   helloService.findall();
     }
+
+
+
 
 }

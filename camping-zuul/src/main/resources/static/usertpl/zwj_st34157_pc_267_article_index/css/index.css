@@ -1,0 +1,357 @@
+/*banner*/
+.st-focus-banners{
+    width: 100%;
+    min-width: 1200px;
+    height: 450px;
+    position: relative;
+    overflow: hidden;
+}
+.st-focus-banners .banners{
+    width: 1920px;
+    height: 450px;
+    position: absolute;
+    left: 50%;
+    margin-left: -960px;
+    overflow: hidden;
+}
+.st-focus-banners .banners > ul > li > a{
+    display: table-cell;
+    width: 1920px;
+    height: 450px;
+    vertical-align: middle;
+    text-align: center;
+}
+.st-focus-banners .banners > ul > li > a img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.st-focus-banners .focus{
+    width: 100%;
+    height: 12px;
+    position: absolute;
+    bottom: 20px;
+    z-index:99;
+    text-align: center;
+}
+.st-focus-banners .focus > ul{
+    height: 12px;
+}
+.st-focus-banners .focus > ul > li{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 3px;
+    cursor: pointer;
+    vertical-align: top;
+    background: rgba(255,255,255,0.7);
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
+}
+.st-focus-banners .focus > ul > li.on{
+    -webkit-border-radius:25px;
+    -moz-border-radius:25px;
+    border-radius:25px;
+    width: 26px;
+    background: rgba(255,255,255,1);
+}
+/*主体内容*/
+.container{
+	width: 100%;
+	min-width: 1200px;
+	padding-bottom: 25px;
+}
+/*推荐攻略*/
+.comm-tit{
+	padding: 24px 0;
+}
+.comm-tit h3{
+	float: left;
+	width: 1000px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 24px;
+	line-height: 28px;
+	font-weight: bold;
+}
+.comm-tit .more{
+	float: right;
+	font-size: 14px;
+	color: #999999;
+	line-height: 28px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	transition: color 0.5s;
+	-webkit-transition: color 0.5s;
+	-moz-transition: color 0.5s;
+	-ms-transition: color 0.5s;    
+}
+.comm-tit .more:hover{
+	color: #07cd5a;
+}
+.gl-list li{
+	float: left;
+	width: 285px;
+	height: 267px; /*279*/
+	margin: 0 20px 20px 0;
+}
+.gl-list li.mr-0{
+	margin-right: 0;
+}
+.gl-list li .pic{
+	width: 285px;
+	height: 178px; /*190*/
+	overflow: hidden;
+	background: #f5f5f5
+}
+.gl-list li .pic a{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	width: 285px;
+	height: 178px; /*190*/
+    overflow: hidden;
+}
+.gl-list li .pic a img{
+	max-width: 100%;
+	max-height: 100%;
+	-webkit-transition: all .5s linear;
+	-moz-transition: all .5s linear;
+	-o-transition: all .5s linear;
+	-ms-transition: all 5s linear;
+	transition: all .5s linear;
+}
+.gl-list li:hover .pic a img{
+	transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+}
+.gl-list li .info{
+	padding: 6px 9px 0;
+	width: 265px;
+	height: 88px;
+	/*border: 1px solid #ececec; 注销攻略首页推荐攻略边框*/
+	border-top: none;
+	background: #f7f7f7; /*新增背景色*/
+}
+.gl-list li .info .tit{
+	display: block;
+	height: 48px;
+	line-height: 24px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	overflow: hidden;
+	transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -ms-transition: color 0.5s;
+}
+.gl-list li:hover .info .tit{
+	color: #07cd5a;
+}
+.gl-list li .info .des{
+	height: 24px;
+	color: #999999;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.gl-list li .info .des .op{
+	float: left;
+	width: 70%;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.gl-list li .info .des .op span{
+	margin-right: 15px;
+}
+.gl-list li .info .des .op span:last-child{
+	margin-right: 0;
+}
+.gl-list li .info .des .op span i{
+	display: inline-block;
+	vertical-align: middle;
+	margin:-2px 5px 0 0;
+	background: url(../images/index-ico.png) no-repeat;
+}
+.gl-list li .info .des .op span.read i{
+	width: 18px;
+	height: 12px;
+	background-position: 0 0;
+}
+.gl-list li .info .des .op span.msg i{
+	width: 14px;
+	height: 14px;
+	background-position: -25px 0;
+}
+.gl-list li .info .des .date{
+	float: right;
+	width: 30%;
+	text-align: right;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+/*热门攻略*/
+.hot-gl-item{
+	margin-top: 20px;
+}
+.hot-gl{
+	float: left;
+	width: 895px;
+}
+.hot-gl-tit{
+	padding: 0;
+}
+.hot-gl-tit h3{
+	float: left;
+	width: 155px;
+	font-size: 24px;
+	line-height: 28px;
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.hot-nav{
+	float: left;
+	width: 740px;
+	overflow: hidden;
+	border-bottom: 1px solid #e5e5e5;
+}
+.hot-nav > ul{
+	float: left;
+	width: 650px;
+}
+.hot-nav li{
+	float: left;
+	line-height: 28px;
+	margin-right: 30px;
+}
+.hot-nav li:last-child{
+	margin-right: 0;
+}
+.hot-nav li a{
+	display: block;
+	padding: 0 4px;
+	font-size: 16px;
+}
+.hot-nav li.on a{
+	color: #07cd5a;
+	border-bottom: 2px solid #07cd5a;
+}
+.hot-gl-list li{
+	padding: 15px 15PX 15PX 0;; /*修改padding: 15px;*/
+	width: 865px;
+	height: 156px; /*160*/
+	overflow: hidden;
+	/*margin-top: 15px;*/
+	transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -ms-transition: background-color 0.5s;
+}
+
+.hot-gl-list li:hover{
+	background: #f8f8f8;
+}
+.hot-gl-list li .pic{
+	float: left;
+	width: 250px;
+	height: 156px; /*160*/
+	overflow: hidden;
+	margin-right: 18px;
+}
+.hot-gl-list li .pic > a{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	width: 250px;
+	height: 156px; /*160*/
+}
+.hot-gl-list li .pic > a img{
+	max-width: 100%;
+	max-height: 100%;
+	vertical-align: middle;
+}
+.hot-gl-list li .info{
+	float: left;
+	width: 597px;
+}
+.hot-gl-list li .info .tit{
+	display: block;
+	height: 52px;
+	line-height: 26px;
+	overflow: hidden;
+	font-size: 18px;
+	transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -ms-transition: color 0.5s;
+    margin-bottom: 14px;
+}
+.hot-gl-list li:hover .info .tit{
+	color: #07cd5a;
+}
+.hot-gl-list li .info .des{
+	height: 60px;
+	overflow: hidden;
+	line-height: 20px;
+	color: #666666;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+.hot-gl-list li .info .op{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.hot-gl-list li .info .op span{
+	margin-right: 25px;
+	line-height: 24px;
+	color: #999999;
+}
+.hot-gl-list li .info .op span i{
+	display: inline-block;
+	vertical-align: middle;
+	margin: -2px 5px 0 0;
+	background: url(../images/index-ico.png) no-repeat;
+}
+.hot-gl-list li .info .op span.read i{
+	width: 18px;
+	height: 12px;
+	background-position: 0 0;
+}
+.hot-gl-list li .info .op span.msg i{
+	width: 14px;
+	height: 14px;
+	background-position: -25px 0;
+}
+.hot-ad{
+	float: right;
+	width: 285px;
+	margin-top: 27px;
+}
+.hot-ad li{
+	width: 285px;
+	height: 320px;
+	margin-bottom: 20px;
+}
+.hot-ad li:last-child{
+	margin-bottom: 0;
+}
+.hot-ad li > a{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	width: 285px;
+	height: 320px;
+}
+.hot-ad li > a img{
+	max-width: 100%;
+	max-height: 100%;
+}

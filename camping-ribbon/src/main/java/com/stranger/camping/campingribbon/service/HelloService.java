@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class HelloService {
@@ -25,14 +25,14 @@ public class HelloService {
 
 
     @HystrixCommand(fallbackMethod="helloError") //@HystrixCommand注解。
-    public List findall() {
-        return restTemplate.getForObject("http://SERVICE-ORDER/findall", List.class);
+    public Map findall() {
+        return restTemplate.getForObject("http://SERVICE-PRODUCT/product/findbyid", Map.class);
     }
-    public List helloError() {
-        List list=new ArrayList();
-        list.set(1,"服务器出现故障，断开连接");
+    public Map helloError() {
+        Map map=new HashMap();
+        map.put(1,"服务器出现故障，断开连接");
         System.out.println("出现故障------------------------------------------------------------------");
-        return list;
+        return map;
     }
 
 

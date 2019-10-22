@@ -1,0 +1,251 @@
+/* 公用头部 */
+.header-container{
+    padding: 30px 0;
+    background: #333;
+}
+
+/* logo */
+.header-logo{
+    float: left;
+    width: 280px;
+    height: 70px;
+    overflow: hidden;
+}
+.header-logo .lg-scope{
+    display: table-cell;
+    width: 280px;
+    height: 70px;
+    vertical-align: middle;
+}
+.header-logo .lg-scope img{
+    max-width: 280px;
+    max-height: 70px;
+    vertical-align: middle;
+}
+
+/* search */
+.search-container{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -20px;
+    z-index: 9999;
+}
+
+.hd-search-wrap{
+    float: left;
+    width: 500px;
+    height: 40px;
+    position: relative;
+}
+.hd-search-box{
+    float: left;
+    border: 2px solid #07cd5a;
+}
+.hd-search-item{
+    float: left;
+    width: 80px;
+    height: 36px;
+    cursor: pointer;
+    position: relative;
+}
+.hd-search-item .select-item{
+    color: #999;
+    display: block;
+    height: 38px;
+    line-height: 36px;
+    text-align: center;
+    font-size: 14px;
+}
+.hd-search-item .select-item:after{
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 4px solid #999;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    vertical-align: middle;
+    margin: -1px 0 0 10px;
+    -webkit-transition: -webkit-transform .3s;
+    transition: transform .3s;
+}
+.hd-search-item:hover .select-item:after{
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.hd-search-item .down-list{
+    display: none;
+    position: absolute;
+    top: 38px;
+    left: -2px;
+    right: 0;
+    z-index: 9999;
+    -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, .1), -2px -0px 3px rgba(0, 0, 0, .1);
+    -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, .1), -2px -0px 3px rgba(0, 0, 0, .1);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, .1), -2px -0px 3px rgba(0, 0, 0, .1);
+    background: #fff;
+}
+.hd-search-item .down-list li{
+    color: #737373;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+}
+.hd-search-item .down-list li:hover{
+    color: #fff;
+    background: #07cd5a;
+}
+
+.hd-search-text{
+    float: left;
+    color: #fff;
+    width: 325px;
+    height: 36px;
+    line-height: 36px;
+    background: transparent;
+}
+.hd-search-btn{
+    float: right;
+    width: 90px;
+    height: 36px;
+    cursor: pointer;
+    background: url("../images/hd-search-btn-icon.png") center no-repeat #07cd5a;
+}
+
+.hd-search-hot{
+    display: none;
+    width: 377px;
+    padding: 10px 15px;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 9999;
+    -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, .1), -2px -0px 3px rgba(0, 0, 0, .1);
+    -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, .1), -2px -0px 3px rgba(0, 0, 0, .1);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, .1), -2px -0px 3px rgba(0, 0, 0, .1);
+    background: #fff;
+}
+.hd-search-hot .hot-title{
+    font-size: 14px;
+    font-weight: bold;
+}
+.hd-search-hot .hot-tag{
+    padding-top: 10px;
+    font-size: 0;
+}
+.hd-search-hot .hot-tag a{
+    color: #737373;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    padding-right: 12px;
+    font-size: 14px;
+}
+.hd-search-hot .hot-tag a:hover{
+    color: #07cd5a;
+}
+
+.hd-server-line{
+    float: right;
+    margin-top: -3px;
+    margin-left: 80px;
+}
+.hd-server-line .txt{
+    color: #d3d3d3;
+    display: block;
+    font-size: 14px;
+}
+.hd-server-line .num{
+    color: #05df61;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 主导航 */
+.nav-container{
+    background: #1f1f1f;
+}
+.nav-wrap{
+    height: 50px;
+}
+.nav-menu{
+    width: 960px;
+}
+.nav-menu > li{
+    float: left;
+    height: 50px;
+}
+.nav-menu > li .item{
+    color: #fff;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 30px;
+    position: relative;
+    font-size: 16px;
+}
+.nav-menu > li .item:hover{
+    color: #05df61;
+}
+.nav-menu > li .item.active{
+    color: #05df61;
+}
+.nav-menu > li .item.active:after{
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    margin-left: -5px;
+    border-bottom: 5px solid #07cd5a;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+
+}
+
+.login-box{
+    height: 50px;
+}
+.login-before{
+    color: #b6b6b6;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+}
+.login-before .link{
+    color: #b6b6b6;
+}
+.login-after{
+    color: #b6b6b6;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+}
+.login-after .name{
+    color: #b6b6b6;
+    display: inline-block;
+    max-width: 100px;
+    height: 24px;
+    line-height: 24px;
+    vertical-align: middle;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.login-after .link{
+    color: #b6b6b6;
+    padding-left: 10px;
+}
+.login-after .link:hover,
+.login-after .name:hover,
+.login-before .link:hover{
+    color: #07cd5a;
+}

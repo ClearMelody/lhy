@@ -8,6 +8,18 @@ eureka:
 spring:
   application:
     name: service-zuul  #这个是以后提供给调用者的名字，只要调用改名字就可以自动访问到  服务的ip和端口号和路径
+    #配置模板相关东西
+  thymeleaf:
+    suffix: .html
+    prefix: classpath:/templates/
+    check-template: true
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+    cache: false
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+
 #  链路追踪
   zipkin:
     base-url: http://localhost:9411
@@ -20,3 +32,11 @@ zuul:
     api-b:
       path: /api-b/**    #以api-开开始的访问路径全部负载到service-feign
       serviceId: service-feign
+  host:
+    connect-timeout-millis: 3000 #HTTP连接超时大于Hystrix的超时时间
+    socket-timeout-millis: 6000   #socket超时
+#  ignored-services: "*"
+#  prefix: /aigou
+ribbon:        #设置ribbon的超时时间小于zuul的超时时间
+  ReadTimeout: 1000
+  ConnectTimeout: 1000

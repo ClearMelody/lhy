@@ -12,7 +12,7 @@ spring:
   #  连接池相关配置
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/wfx?useSSL=false&serverTimezone=UTC #连接数据库的地址
+      url: jdbc:mysql://localhost:3306/orders?useSSL=false&serverTimezone=UTC #连接数据库的地址
       username: root #数据库的登录帐号
       password: root #数据库的登录密码
       driverClassName: com.mysql.jdbc.Driver
@@ -48,7 +48,7 @@ spring:
 #消息队列
   rabbitmq:
     host: localhost #地址
-    port: 15672      #端口
+    port: 5672      #端口
     username: guest   #用户
     password: guest    #密码
     #链路追踪
@@ -76,4 +76,4 @@ mybatis:
     map-underscore-to-camel-case: true
     # 输出SQL执行语句 （log4j2本身可以输出sql语句）
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #这种带结果集
-  type-aliases-package: com.example.myclient.model
+  type-aliases-package: com.stranger.camping.campingorderclient.model.

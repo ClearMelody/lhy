@@ -1,0 +1,145 @@
+/* 公用底部 */
+.footer-container{
+    background: url("../images/footer-bg.png") center bottom no-repeat #4a4a49;
+}
+.footer-help{
+    padding: 50px 0 30px;
+}
+.footer-help .help-list{
+    float: left;
+    width: 130px;
+    padding-left: 50px;
+}
+.footer-help .help-list dt a{
+    color: #c4c4c4;
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+.footer-help .help-list dd{
+    padding-top: 10px;
+}
+.footer-help .help-list dd a{
+    color: #999;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px;
+}
+.footer-help .help-list a:hover{
+    color: #07cd5a;
+}
+
+.footer-help .qr-code{
+    float: right;
+    width: 120px;
+    margin-right: 50px;
+    text-align: center;
+}
+.footer-help .qr-code img{
+    width: 120px;
+    height: 120px;
+}
+.footer-help .qr-code .txt{
+    color: #999;
+    display: block;
+    font-size: 14px;
+}
+
+.hr-line{
+    height: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid #262626;
+    border-bottom: 1px solid #656565;
+}
+
+.footer-wrap{
+    padding: 20px 0;
+}
+.footer-logo{
+    width: 170px;
+    height: 42px;
+}
+.footer-logo .item-tell{
+    display: table-cell;
+    width: 170px;
+    height: 42px;
+    vertical-align: middle;
+}
+.footer-logo .item-tell img{
+    max-width: 170px;
+    max-height: 42px;
+    vertical-align: middle;
+}
+
+.footer-info{
+    width: 1000px;
+}
+.footer-menu{
+    font-size: 0;
+}
+.footer-menu > li{
+    color: #999;
+    display: inline-block;
+    font-size: 13px;
+}
+.footer-menu > li > a{
+    color: #999;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 10px;
+}
+.footer-menu > li:first-child > a{
+    padding-left: 0;
+}
+.footer-menu > li > a:hover{
+    color: #07cd5a;
+}
+
+.foot-edit{
+    color: #999;
+    line-height: 22px;
+    padding-top: 5px;
+    font-size: 13px;
+}
+
+.foot-link{
+    padding-top: 5px;
+    font-size: 13px;
+}
+.foot-link .item-hd{
+    color: #999;
+    float: left;
+    width: 68px;
+    height: 22px;
+    line-height: 22px;
+}
+.foot-link .item-bd{
+    padding-left: 68px;
+    font-size: 0;
+}
+.foot-link .item-bd a{
+    color: #999;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    padding-right: 10px;
+    font-size: 13px;
+}
+.st-gl-article-box{
+	margin-top: 0 !important;	
+}
+.st-main-page{
+	padding-bottom: 40px !important;
+}
+

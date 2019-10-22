@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableDiscoveryClient          //服务不需要发现
 @SpringBootApplication
 @EnableTransactionManagement // 配置的 事务注解的开发
-@MapperScan(basePackages = "com.stranger.camping.campingorderclient.dao") // tkmapper的扫描
+@MapperScan(basePackages = "com.stranger.camping.campingusersclient.dao") // tkmapper的扫描
 public class CampingUsersClientApplication {
 
     public static void main(String[] args) {

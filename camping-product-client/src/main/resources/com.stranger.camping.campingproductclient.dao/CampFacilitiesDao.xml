@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stranger.camping.campingproductclient.dao.CampFacilitiesSonDao">  <!--操作接口mapper层-->
+    <resultMap id="TbOrderUsersMap" type="com.stranger.camping.campingproductclient.model.CampFacilities"><!--type指返回的类型，指向具体实体类-->
+        <id property="id" column="id" javaType="Long"></id>
+        <result property="name" column="name" javaType="String"></result>
+        <collection property="campFacilitiesSons" column="product_id" ofType="com.stranger.camping.campingproductclient.model.CampFacilitiesSon">
+            <!--这里有个巨坑， column="sid"里面的htid记得和改过的别名保持一致，如果还是写id会死的很惨-->
+            <id property="id" column="sid" javaType="Long"></id>
+            <result property="nameSon" column="name_son" javaType="String"></result>
+            <result property="fatherId" column="father_id" javaType="Long"></result>
+            <result property="productId" column="product_id" javaType="Long"></result>
+        </collection>
+    </resultMap>
+    <!--selectfather操作mapper层的具体方法名-->
+    <select id="findallbyid" parameterType="int" resultMap="TbOrderUsersMap">
+select cf.*,cfs.id sid,cfs.name_son,cfs.father_id,cfs.product_id from camp_facilities cf ,camp_facilities_son cfs where cf.id=cfs.father_id
+  and cfs.product_id=#{id};
+    </select>
+</mapper>

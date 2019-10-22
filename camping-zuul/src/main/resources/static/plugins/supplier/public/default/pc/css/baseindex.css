@@ -1,0 +1,372 @@
+@charset "utf-8";
+/*重置CSS*/
+.footer {
+    font-size: 14px;
+    text-align: center;
+	/*margin-left: 50px;
+    margin-top: 18px;*/
+	width: 1200px;
+    margin: 0 auto;
+    position: relative;
+	line-height: 22px;
+    color: #0e0e0e;
+}
+
+/*仿携程加盟合作开始*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+}
+h1 {
+    font-size: 24px;
+}
+h2 {
+    font-size: 22px;
+}
+h3 {
+    font-size: 20px;
+}
+h4 {
+    font-size: 18px;
+}
+h5 {
+    font-size: 16px;
+}
+h6 {
+    font-size: 14px;
+}
+
+.ico_cooperation,
+.ico_vip,
+.ico_monthly,
+.ico_multi {
+    display: inline-block;
+    background-image: url(//pic.c-ctrip.com/htlpic/hotel_join/un_htl_join.png);
+    vertical-align: middle;
+}
+
+.ico_cooperation,
+.ico_vip,
+.ico_monthly,
+.ico_multi {
+    width: 56px;
+    height: 58px;
+    margin-right: 9px;
+    background-position: 0 0;
+}
+
+.ico_vip {
+    background-position: -66px 0;
+}
+
+.ico_monthly {
+    background-position: -132px 0;
+}
+
+.ico_multi {
+    background-position: -198px 0;
+}
+
+#base_bd {
+    width: 1200px;
+    padding: 10px 0px;
+    margin: 0 auto;
+}
+
+.btn {
+    display: inline-block;
+    width: 60px;
+    height: 26px;
+    border: solid 1px #e77c00;
+    color: #fff;
+    font-size: 12px;
+    font-family: SimSun, Tahoma, Verdana, Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 26px;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 0 1px 0 rgba(95, 50, 0, 0.7);
+    border-radius: 3px;
+    text-shadow: 1px 1px 0 #cf7000;
+    background-color: #ffb000;
+    *filter: chroma(color=#000000);
+    outline: none;
+}
+
+.join_flow_cont .join_flow li,
+.join_flow_cont .join_flow .arr,
+.ind_bd_r .banner_manage .b_bg,
+.ind_bd_r .banner_ebooking .b_bg,
+.ind_bd_r .banner_info,
+.ico_success_mini,
+.ico_active_pwd {
+    background-image: url(//www.quluying.com/plugins/supplier/public/images/un_index_bg.png);
+    background-repeat: no-repeat;
+}
+
+.join_flow_cont,
+.join_reason_cont {
+    background-image: url(//www.quluying.com/plugins/supplier/public/images/banner_word_bg.png);
+}
+
+.index_bd {
+    padding-bottom: 16px;
+}
+
+.ind_bd_l,
+.ind_bd_r {
+    float: left;
+}
+
+.ind_bd_l {
+    width: 804px;
+    margin-right: 18px;
+}
+
+.ind_bd_r {
+    width: 376px;
+}
+
+.join_flow_cont,
+.join_reason_cont {
+    height: 252px;
+    background-position: 0 -122px;
+    margin-bottom: 20px;
+    font-family: 'microsoft yahei', simsun, sans-serif;
+}
+
+.join_flow_cont .jf_tit,
+.join_reason_cont .jf_tit {
+    padding: 20px 0 0 40px;
+    font-weight: normal;
+}
+
+.join_flow_cont .join_flow {
+    margin-left: 67px;
+    margin-top: 24px;
+}
+
+.join_flow_cont .join_flow li {
+    float: left;
+}
+
+.join_flow_cont .join_flow .step1,
+.join_flow_cont .join_flow .step2,
+.join_flow_cont .join_flow .step3,
+.join_flow_cont .join_flow .step4 {
+    width: 104px;
+    height: 135px;
+    margin: 0;
+}
+
+.join_flow_cont .join_flow .step1 {
+    background-position: -191px -275px;
+}
+
+.join_flow_cont .join_flow .step2 {
+    background-position: -376px -275px;
+}
+
+.join_flow_cont .join_flow .step3 {
+    background-position: -501px -275px;
+}
+
+.join_flow_cont .join_flow .step4 {
+    background-position: -626px -275px;
+}
+
+.join_flow_cont .join_flow .arr {
+    width: 34px;
+    height: 26px;
+    margin: 41px 18px 0 26px;
+    background-position: -321px -320px;
+}
+
+.join_reason_cont {}
+
+.join_reason_cont .join_reason_list {
+    padding: 29px 0 0 40px;
+}
+
+.join_reason_cont .join_reason_list li {
+    float: left;
+    width: 370px;
+    margin-bottom: 15px;
+    color: #727379;
+    font-family: 'microsoft yahei', simsun, sans-serif;
+    font-size: 18px;
+}
+
+.join_reason_cont .join_reason_list li .cont {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: middle;
+}
+
+.join_reason_cont .join_reason_list span {
+    color: #333;
+}
+
+.ind_bd_r .b_bg,
+.ind_bd_r .banner_ebooking .qr_code,
+.ind_bd_r .w_h,
+.ind_bd_r .w_c,
+.ind_bd_r .w_d,
+.ind_bd_r .banner_manage .btn_check {
+    position: absolute;
+}
+
+.ind_bd_r .w_h,
+.ind_bd_r .w_c,
+.ind_bd_r .w_d {
+    margin-left: 20px;
+    color: #fff;
+}
+
+.ind_bd_r .w_h {
+    top: 18px;
+    font-size: 24px;
+}
+
+.ind_bd_r .w_c {
+    top: 56px;
+    font-size: 16px;
+}
+.ind_bd_r .w_d {
+    top: 90px;
+    font-size: 16px;
+}
+.ind_bd_r .banner_manage,
+.ind_bd_r .banner_ebooking,
+.ind_bd_r .banner_info {
+    position: relative;
+    margin-bottom: 15px;
+    overflow: hidden;
+    font-family: 'microsoft yahei', simsun, sans-serif;
+}
+
+.ind_bd_r .banner_manage {
+    height: 199px;
+    background-color: #277ce5;
+}
+
+.ind_bd_r .banner_manage .b_bg {
+    left: 0;
+    bottom: 0;
+    width: 376px;
+    height: 69px;
+    background-position: -382px -171px;
+}
+
+.ind_bd_r .banner_manage .btn_check {
+    left: 248px;
+
+    top: 28px;
+    display: inline-block;
+    width: 107px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    background-color: #0643a8;
+    border-radius: 4px;
+}
+
+.ind_bd_r .banner_manage .btn_check:hover {
+    text-decoration: none;
+    background-color: #184286;
+}
+
+.ind_bd_r .banner_manage .w_h {}
+
+.ind_bd_r .banner_manage .w_c {}
+
+.ind_bd_r .banner_manage .box_manage {
+    position: absolute;
+    left: 0;
+    top: 95px;
+    width: 356px;
+    padding-left: 20px;
+}
+
+.ind_bd_r .banner_manage .qr_code {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+
+.ind_bd_r .banner_manage .title,
+.ind_bd_r .banner_manage .info {
+    color: #fff;
+}
+
+.ind_bd_r .banner_manage .title {
+    margin-top: 14px;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.ind_bd_r .banner_manage .info {
+    font-size: 14px;
+}
+
+.ind_bd_r .banner_ebooking {
+    height: 135px;
+    background-color: #fc9107;
+}
+
+.ind_bd_r .banner_ebooking .b_bg {
+    left: 50px;
+    bottom: 0;
+    width: 127px;
+    height: 73px;
+    background-position: 0 -275px;
+}
+
+.ind_bd_r .banner_ebooking .qr_code {
+    top: 28px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+}
+
+.ind_bd_r .banner_ebooking .w_c {
+    font-size: 16px;
+}
+
+.ind_bd_r .banner_ebooking .info {
+    position: absolute;
+    top: 110px;
+    right: 25px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.ind_bd_r .banner_info {
+    height: 160px;
+    margin-bottom: 0;
+    background: url(//www.quluying.com/plugins/supplier/public/images/un_index_bg.png) #eef0f2 -382px 0 no-repeat;
+}
+/*仿携程加盟合作结束*/
+
+/*底部联系方式开始*/
+
+.footer-info{
+    width: 1200px;
+	padding-bottom:20px;
+}
+.foot-edit{
+    color: #999;
+    line-height: 22px;
+    padding-top: 5px;
+    font-size: 13px;
+}
