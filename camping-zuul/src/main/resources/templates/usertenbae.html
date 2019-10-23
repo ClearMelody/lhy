@@ -1,0 +1,578 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base th:href="${#request.getContextPath()}+'/'">
+    <title>会员中心-去露营网</title>
+    <script src="js/push.js"></script>
+    <script>
+        window.SITEURL = "/";
+        window.CURRENCY_SYMBOL = "￥";
+    </script>
+    <link type="text/css" href="css/user.css" rel="stylesheet">
+    <link type="text/css" href="css/base.css" rel="stylesheet">
+    <link type="text/css" href="css/extend.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" href="css/layer.css" id="layuicss-skinlayercss">
+</head>
+<body>
+<link href="css/header.css" rel="stylesheet" media="screen" type="text/css">
+<script type="text/javascript" src="js/login.js"></script>
+<div class="header-container">
+    <div class="wm-1200">
+        <div class="header-logo">
+            <a class="lg-scope" href="https://www.quluying.com/">
+                <img src="img/1e629a328e41545326fffae2687a277c.png" alt="去露营网">
+            </a>
+        </div>
+        <div class="search-container">
+            <div class="hd-search-wrap">
+                <div class="hd-search-box">
+                    <div class="hd-search-item" id="hdSearchItem">
+                        <input type="hidden" id="typename">
+                        <span class="select-item" data-id="0" id="selectItem">全部</span>
+                        <ul class="down-list" id="downList">
+                            <li data-id="2" data-url="/hotels/">宿营</li>
+                            <li data-id="114" data-url="/outdoor/">活动</li>
+                            <li data-id="4" data-url="/raiders/">攻略</li>
+                            <li data-id="115" data-url="/news/">资讯</li>
+                        </ul>
+                    </div>
+                    <input type="text" class="hd-search-text searchkeyword" id="hdSearchText" placeholder="">
+                    <input type="button" class="hd-search-btn">
+                </div>
+                <div class="hd-search-hot" id="hdSearchHot" style="display: none;">
+                    <h4 class="hot-title">热门搜索</h4>
+                    <div class="hot-tag">
+                        <a href="https://www.quluying.com/search/cloudsearch?keyword=%E6%98%86%E6%98%8E"
+                           target="_blank">昆明</a>
+                        <a href="https://www.quluying.com/search/cloudsearch?keyword=%E7%9F%B3%E6%9E%97"
+                           target="_blank">石林</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hd-server-line">
+                <span class="txt">全国服务热线</span>
+                <span class="num">156 0871 8688</span>
+            </div>
+        </div>
+    </div>
+</div> <!-- 公用头部 -->
+<div class="nav-container">
+    <div class="wm-1200">
+        <div class="nav-wrap">
+            <ul class="nav-menu fl">
+                <li><a class="item" href="https://www.quluying.com/">首页</a></li>
+                <li><a class="item nav_header_2" href="https://www.quluying.com/hotels/" title="宿营">宿营</a></li>
+                <li><a class="item nav_header_114" href="https://www.quluying.com/outdoor/" title="活动">活动</a></li>
+                <li><a class="item nav_header_4" href="https://www.quluying.com/raiders/" title="攻略">攻略</a></li>
+                <li><a class="item nav_header_12" href="https://www.quluying.com/destination/" title="导航">导航</a></li>
+                <li><a class="item nav_header_115" href="https://www.quluying.com/news/" title="资讯">资讯</a></li>
+                <li><a class="item nav_header_" href="https://www.quluying.com/plugins/supplier/" title="供应商">供应商</a>
+                </li>
+            </ul>
+            <div class="login-box fr" id="loginstatus">
+                <span class="login-after">你好，
+                    <a class="name" href="https://www.quluying.com/member/">1109917832</a>
+                    <a class="link" href="https://www.quluying.com/member/login/loginout">退出</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div> <!-- 主导航 -->
+<script>
+    var SITEURL = "/";
+    $(function () {
+        //点击展示热搜
+        $("#hdSearchText").on("click", function (event) {
+            event.stopPropagation();
+            $("#hdSearchHot").show();
+        });
+        //点击空白区域隐藏
+        $("body").on("click", function () {
+            $("#hdSearchHot").hide();
+        });
+        //绑定hover事件
+        $("#hdSearchItem").hover(function () {
+            $(this).children("#downList").show();
+            $("#hdSearchHot").hide();
+        }, function () {
+            $(this).children("#downList").hide()
+        });
+        //选定数据
+        $("#downList > li").on("click", function () {
+            var liData = $(this).text();
+            var typeid = $(this).attr('data-id');
+            var durl = $(this).attr('data-url');
+            $("#selectItem").text(liData);
+            $('#selectItem').attr('data-id', typeid);
+            $('#selectItem').attr('data-url', durl);
+            $("#downList").hide()
+        })
+        //选中导航
+        var typeid = "";
+        if (typeid != '') {
+            $('.nav_header_' + typeid).addClass('active');
+        }
+        //搜索
+        $('.hd-search-btn').click(function () {
+            var keyword = $('.searchkeyword').val();
+            if (keyword == '') {
+                $('.searchkeyword').focus();
+                return false;
+            }
+            var typeid = $("#selectItem").attr('data-id');
+            var durl = $("#selectItem").attr('data-url');
+            if (typeid == 0 || typeid == 8) {
+                var url = SITEURL + 'search/cloudsearch?keyword=' + encodeURIComponent(keyword) + "&typeid=" + typeid;
+            } else {
+                var url = "https://www.quluying.com" + durl + 'all?keyword=' + encodeURIComponent(keyword);
+            }
+            location.href = url;
+        })
+        //登陆状态
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: SITEURL + "member/login/ajax_is_login",
+            dataType: 'json',
+            success: function (data) {
+                if (data.status) {
+                    txt = '<span class="login-after">';
+                    txt += '你好， <a class="name" href="https://www.quluying.com/member/">' + data.user.nickname + '</a>';
+                    txt += '<a class="link" href="https://www.quluying.com/member/login/loginout">退出</a>';
+                    txt += '</span>';
+                } else {
+                    txt = '<span class="login-before">';
+                    txt += '<a class="link" href="https://www.quluying.com/member/login">登录</a>';
+                    txt += '丨';
+                    txt += '<a class="link" href="https://www.quluying.com/member/register">注册</a>';
+                    txt += '</span>';
+                }
+                $("#loginstatus").html(txt);
+            }
+        })
+    })
+</script>
+<div class="big">
+    <div class="wm-1200">
+        <div class="st-guide">
+            <a href="https://www.quluying.com/">首页</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;会员中心
+        </div><!--面包屑-->
+        <div class="st-main-page">
+            <div class="user-side-menu">
+                <ul>
+                    <li>
+                        <a id="nav_index" href="https://www.quluying.com/member" class="on">
+                            <i class="st-user-icon user-home-icon"></i>会员首页
+                        </a>
+                    </li>
+                    <li>
+                        <a class="side-menu-group" href="javascript:;">
+                            <i class="st-user-icon user-order-icon"></i>我的订单
+                            <i class="arrow-icon"></i>
+                        </a>
+                        <div class="son">
+                            <a id="nav_allorder" href="https://www.quluying.com/member/order/all">全部订单</a>
+                            <a id="nav_hotelorder" href="https://www.quluying.com/member/order/plugin_list?typeid=2">宿营订单</a>
+                            <a id="nav_outdoororder"
+                               href="https://www.quluying.com/member/order/plugin_list?typeid=114">活动订单</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a id="nav_myquestion" href="https://www.quluying.com/member/index/myquestion">
+                            <i class="st-user-icon user-zx-icon"></i>我的咨询
+                        </a>
+                    </li>
+                    <li>
+                        <a id="nav_myjifen" href="https://www.quluying.com/member/club/score">
+                            <i class="st-user-icon user-jf-icon"></i>我的积分
+                        </a>
+                    </li>
+                    <li>
+                        <a id="nav_money" href="https://www.quluying.com/member/bag/index">
+                            <i class="st-user-icon user-qb-icon"></i>我的钱包
+                        </a>
+                    </li>
+                    <li>
+                        <a class="side-menu-group" href="javascript:;">
+                            <i class="st-user-icon user-center-icon"></i>个人中心
+                            <i class="arrow-icon"></i>
+                        </a>
+                        <div class="son">
+                            <a id="nav_userinfo" href="https://www.quluying.com/member/index/userinfo">个人资料</a>
+                            <a id="nav_safecenter" href="https://www.quluying.com/member/index/safecenter">账号安全</a>
+                            <a id="nav_userbind" href="https://www.quluying.com/member/index/userbind">账号绑定</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="side-menu-group" href="javascript:;">
+                            <i class="st-user-icon user-msg-icon"></i>常用信息
+                            <i class="arrow-icon"></i>
+                        </a>
+                        <div class="son">
+                            <a href="https://www.quluying.com/member/index/linkman" id="nav_linkman">常用旅客</a>
+                            <a href="https://www.quluying.com/member/index/address" id="nav_consignees_address">常用地址</a>
+                            <a href="https://www.quluying.com/member/index/invoice" id="nav_invoice">常用发票</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="side-menu-group" href="javascript:;">
+                            <i class="st-user-icon user-message-icon"></i>我的消息
+                            <i class="arrow-icon">
+
+                            </i>
+                        </a>
+                        <div class="son">
+                            <a href="https://www.quluying.com/member/message/index" id="nav_message_index">系统消息</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <script>
+                $(function () {
+                    $(".side-menu-group").on("click", function () {
+                        if (!$(this).hasClass("up")) {
+                            $(this).addClass("up").next(".son").show();
+                        }
+                        else {
+                            $(this).removeClass("up").next(".son").hide();
+                        }
+                        $(this).parent("li").siblings().children(".side-menu-group").removeClass("up").next(".son").hide()
+                    })
+                })
+
+                function on_leftmenu_choosed() {
+                    var ele = $(".user-side-menu .son a.on").parents('li:first').find('.side-menu-group:first');
+                    if (!ele.hasClass('up')) {
+                        ele.trigger('click');
+                    }
+                }
+            </script>
+            <div class="user-order-box">
+                <div class="user-home-box">
+                    <div class="hint-msg-box">
+                        <span class="close-btn">关闭</span>
+                        <p class="hint-txt"> 温馨提示：请完善
+                            <a href="https://www.quluying.com/member/index/userinfo">手机/邮箱</a>信息，避免错过产品预定联系等重要通知!
+                        </p>
+                    </div>
+                    <script>
+                        $(function () {
+                            $('.close-btn').click(function () {
+                                $('.hint-msg-box').hide(500);
+                            })
+                        })
+                    </script>
+                    <div class="user-home-msg">
+                        <div class="user-msg-con">
+                            <div class="user-pic">
+                                <div class="level">
+                                    <a href="https://www.quluying.com/member/club/rank">Lv.1</a>
+                                </div>
+                                <a href="https://www.quluying.com/member/index/userinfo">
+                                    <img src="img/member_nopic.png" width="118" height="118">
+                                </a>
+                            </div>
+                            <div class="user-txt">
+                                <p class="name" th:text="${user.nickName}">1109917832</p>
+                                <p class="item-bar">会员等级：普通会员</p>
+                                <p class="item-bar">登录邮箱：<span th:text="${user.email}">1109917832@qq.com</span></p>
+                                <p class="item-bar">手机号码：<span
+                                        th:text="${user.telephoneNumber} !=null ? ${user.telephoneNumber} : '未绑定'"></span>
+                                    <a class="rz-no" href="https://www.quluying.com/member/index/modify_phone?change=0">立即绑定</a>
+                                </p>
+                                <p class="item-bar">真实姓名：<span
+                                        th:text="${user.relalmName} !=null ? ${user.relalmName} : '未实名'">未实名</span>
+                                    <a class="rz-no" href="https://www.quluying.com/member/index/modify_idcard">实名认证</a>
+                                </p>
+                            </div>
+                        </div><!-- 账号信息 -->
+                        <div class="user-msg-right">
+                            <div class="user-msg-tj">
+                                <ul class="clearfix">
+                                    <li class="my-jf" data-url="/member/order/all-unpay">
+                                        <em></em>
+                                        <span>未付款</span>
+                                    </li>
+                                    <li class="un-fk" data-url="/member/order/all-uncomment">
+                                        <em></em>
+                                        <span>未点评</span>
+                                    </li>
+                                    <li class="un-dp" data-url="/member/index/myquestion">
+                                        <em></em>
+                                        <span>我的咨询</span>
+                                    </li>
+                                </ul>
+                            </div><!-- 订单信息 -->
+                            <div class="user-info-exchange">
+                                <ul class="clearfix">
+                                    <li>
+                                        <em>我的余额：</em>
+                                        <strong>￥0</strong>
+                                    </li>
+                                    <li>
+                                        <em>我的积分：</em>
+                                        <strong th:text="${user.integral}">25</strong>
+                                    </li> <!--                    <li><em>我的余额：</em><strong>¥6525</strong></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-home-order">
+                        <div class="order-tit">最新订单
+                            <a class="more" href="https://www.quluying.com/member/order/all">查看更多&gt;</a>
+                        </div>
+                        <div class="order-list">
+                            <table width="100%" border="0">
+                                <tbody>
+                                <tr>
+                                    <th width="55%" height="38" scope="col">订单信息</th>
+                                    <th width="15%" height="38" scope="col">订单金额</th>
+                                    <th width="15%" height="38" scope="col">订单状态</th>
+                                    <th width="15%" height="38" scope="col">订单操作</th>
+                                </tr>
+                                <tr th:each="orders : ${order}">
+                                    <td height="114">
+                                        <div class="con">
+                                            <dl>
+                                                <dt>
+                                                    <a href="https://www.quluying.com/hotels/show_12.html"
+                                                       target="_blank">
+                                                        <img src="img/91b3469606c12c2d586c41297eb93e55_110x80.jpg"
+                                                             width="110" height="80" alt="">
+                                                    </a>
+                                                </dt>
+                                                <dd>
+                                                    <a class="tit" href="https://www.quluying.com/hotels/show_12.html"
+                                                       target="_blank" th:text="${orders.houseNumber}">途居芜湖龙山房车露营地(途居芜湖营地&amp;情侣房车(送双早))</a>
+                                                    <p>订单编号：
+                                                        <span th:text="${orders.orderNumber}">00219101514050883387</span>
+                                                    </p>
+                                                    <p>下单时间：
+                                                        <span th:text="${orders.endTime}">2019-10-15 14:05:08</span>
+
+                                                    </p>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                    <span class="price">
+                                        <i class="currency_sy">￥</i>
+                                        <span th:text="${orders.orderPrice}">429</span>
+                                    </span>
+                                    </td>
+                                    <td align="center">
+                                        <span class="dfk">已关闭</span>
+                                    </td>
+                                    <td align="center">
+                                        <a class="order-ck"
+                                           href="https://www.quluying.com/member/order/view?ordersn=00219101514050883387">查看订单</a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- 我的订单 -->
+                </div>
+            </div><!--会员首页-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/layer.js"></script>
+<link href="css/footer.css" rel="stylesheet" media="screen" type="text/css">
+<div class="clear"></div>
+<div class="footer-container clear">
+    <div class="wm-1200">
+        <div class="footer-help clearfix">
+            <dl class="help-list">
+                <dt>
+                    <a href="https://www.quluying.com/member/#" target="_blank">预订常见问题</a>
+                </dt>
+                <dd>
+                    <a href="https://www.quluying.com/help/show_46.html" target="_blank" rel="nofollow">单房差是什么？</a> <a
+                        href="https://www.quluying.com/help/show_43.html" target="_blank" rel="nofollow">如何获取发票？</a> <a
+                        href="https://www.quluying.com/help/show_16.html" target="_blank" rel="nofollow">预订露营地的问题</a>
+                </dd>
+            </dl>
+            <dl class="help-list">
+                <dt><a href="https://www.quluying.com/member/#" target="_blank">付款方式</a></dt>
+                <dd></dd>
+            </dl>
+            <dl class="help-list">
+                <dt><a href="https://www.quluying.com/member/#" target="_blank">加盟合作</a></dt>
+                <dd><a href="https://www.quluying.com/help/show_31.html" target="_blank" rel="nofollow">加盟优势</a> <a
+                        href="https://www.quluying.com/help/show_32.html" target="_blank" rel="nofollow">入驻材料</a></dd>
+            </dl>
+            <dl class="help-list">
+                <dt><a href="https://www.quluying.com/member/#" target="_blank">其它问题</a></dt>
+                <dd><a href="https://www.quluying.com/help/show_1.html" target="_blank" rel="nofollow">纯玩是什么意思？</a></dd>
+            </dl>
+            <div class="qr-code"><img src="./会员中心-去露营网_files/5f26cbff1345b730f65266a8f0672c9e.jpg"> <span class="txt">微信扫一扫</span>
+            </div>
+        </div>
+        <hr class="hr-line">
+        <div class="footer-wrap clearfix">
+            <div class="footer-logo fl"><a class="item-tell" href="https://www.quluying.com/"><img
+                    src="./会员中心-去露营网_files/1e629a328e41545326fffae2687a277c.png"></a></div>
+            <div class="footer-info fr">
+                <ul class="footer-menu clearfix">
+                    <li><a href="https://www.quluying.com/servers/index_1.html" target="_blank" rel="nofollow">关于我们</a>丨
+                    </li>
+                    <li></li>
+                    <li><a href="https://www.quluying.com/servers/index_12.html" target="_blank" rel="nofollow">广告招商</a>丨
+                    </li>
+                    <li></li>
+                    <li><a href="https://www.quluying.com/servers/index_2.html" target="_blank" rel="nofollow">联系我们</a>丨
+                    </li>
+                    <li></li>
+                    <li><a href="https://www.quluying.com/servers/index_4.html" target="_blank" rel="nofollow">支付方式</a>丨
+                    </li>
+                    <li></li>
+                    <li><a href="https://www.quluying.com/servers/index_11.html" target="_blank" rel="nofollow">新手上路</a>
+                    </li>
+                    <li></li>
+                </ul>
+                <div class="foot-edit clearfix">
+                    <p>Copyright © 2018　版权所有　云南网库信息技术有限公司　滇ICP备14003019号
+                        <script type="text/javascript" src="./会员中心-去露营网_files/z_stat.php"></script>
+                        <script src="./会员中心-去露营网_files/core.php" charset="utf-8" type="text/javascript"></script>
+                        <a href="https://www.cnzz.com/stat/website.php?web_id=1275061751" target="_blank" title="站长统计">站长统计</a>
+                    </p>
+                    <p>地址：云南省昆明市小康大道国福现代城3栋18楼　投诉建议邮箱：jianyi@quluying.com</p></div>
+            </div>
+        </div>
+    </div> <!--百度自动推送开始-->
+    <script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script> <!--360自动收录开始-->
+    <script>
+        (function () {
+            var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?d0f2190e19325eaaeb781ca07f0f2212" : "https://jspassport.ssl.qhimg.com/11.0.1.js?d0f2190e19325eaaeb781ca07f0f2212";
+            document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+    <script src="js/11.0.1.js" id="sozz"></script>
+    <script charset="utf-8" src="js/ab77b6ea7f3fbf79.js"></script>
+    <!--360自动收录结束-->
+    <script src="js/qqkefu.js"></script>
+    <script>
+        $(function () {
+            $("#nav_index").addClass('on');
+            if (typeof(on_leftmenu_choosed) == 'function') {
+                on_leftmenu_choosed();
+            }
+            $(".user-msg-tj li").click(function () {
+                var url = $(this).attr('data-url');
+                if (url != '') {
+                    location.href = url;
+                }
+            })
+        })
+    </script> <!--订单中心用的js事件-->
+    <script>
+        $(function () {
+            //取消订单
+            $(".cancel_order").click(function () {
+                var orderid = $(this).attr('data-orderid');
+                var url = SITEURL + 'member/order/ajax_order_cancel';
+                layer.confirm('确定取消订单吗？', {
+                    icon: 3,
+                    btn: ['放弃', '确定'], //按钮
+                    btn1: function () {
+                        layer.closeAll();
+                    },
+                    btn2: function () {
+                        $.getJSON(url, {orderid: orderid}, function (data) {
+                            if (data.status) {
+                                layer.msg('取消订单成功', {icon: 6, time: 1000});
+                                setTimeout(function () {
+                                    location.reload()
+                                }, 1000);
+                            }
+                            else {
+                                layer.msg('取消订单失败', {icon: 5, time: 1000});
+                            }
+                        })
+                    },
+                    cancel: function () {
+                        layer.closeAll();
+                    }
+                })
+            })
+        })
+    </script>
+</div>
+
+
+<link type="text/css" href="css/layer(1).css" rel="stylesheet">
+
+<div></div>
+
+
+<div class="st-side-menu-block" style="right:0px">
+    <div class="st-side-menu-list">
+        <div class="st-side-call">
+            <div class="call-set">
+                <i class="call-close"></i>
+                <input type="text" class="call-num" id="freekefu_phone" placeholder="请输入您的电话号码">
+                <input type="submit" class="call-btn" id="freekefu_btn" value="立即免费通话">
+                <p class="call-txt">输入电话号码，点击免费通话、稍后我们将与您联系，此次通话将不收取您任何费用，请注意接听。</p>
+            </div>
+        </div>
+        <ul class="menu-ul-child">
+            <li>
+                <span class="side-qq"></span>
+                <div class="child-block">
+                    <div class="side-online-qq">
+                        <div class="online-tit">在线咨询</div>
+                        <dl class="online-group">
+                            <dt>期待与您交流</dt>
+                            <dd class="clearfix">
+                                <a target="_blank"
+                                   href="http://wpa.qq.com/msgrd?v=3&amp;uin=23359161&amp;site=qq&amp;menu=yes">营小萌</a>
+                                <a target="_blank"
+                                   href="http://wpa.qq.com/msgrd?v=3&amp;uin=50565637&amp;site=qq&amp;menu=yes">营小可</a>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <span class="side-phone"></span>
+                <div class="child-block">
+                    <div class="side-link-num">客服电话：156 0871 8688</div>
+                </div>
+            </li>
+            <li>
+                <span class="side-wechat"></span>
+                <div class="child-block">
+                    <div class="side-wechat-Sweep">
+                        <img src="img/5f26cbff1345b730f65266a8f0672c9e.jpg">
+                        <p>关注官方微信</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="st-side-back-top">TOP</div>
+        <div class="st-side-close"></div>
+    </div>
+    <div class="st-side-flexible-block"></div>
+</div><!-- 黑色边栏客服 -->
+</body>
+</html>

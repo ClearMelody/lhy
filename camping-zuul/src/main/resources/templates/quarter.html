@@ -1,0 +1,884 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base th:href="${#request.getContextPath()}+'/'">  
+    <title>露营地点推荐_露营地查询_露营地预订_网上订露营地-去露营网</title>  
+    <meta name="keywords" content="露营地点推荐,露营地查询,露营地预订,网上订露营地">   
+    <meta name="description" content="去露营网(quluying.com)中国首家露营地资源整合网站品牌。提供国内帐篷、木屋、房车露营地点推荐，宿营地查询，露营地预订，网上预订露营地服务。">  <meta property="og:image" content="https://www.quluying.com/uploads/images/logo_camp.jpg"> <script src="js/push.js"></script><script>
+    window.SITEURL = "/";
+    window.CURRENCY_SYMBOL="￥";
+</script> <link type="text/css" href="css/hotel.css" rel="stylesheet">
+ <link type="text/css" href="css/base.css" rel="stylesheet">
+<link type="text/css" href="css/extend.css" rel="stylesheet">
+ <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/SuperSlide.min.js"></script>
+<script type="text/javascript" src="js/template.js"></script>
+<script type="text/javascript" src="js/delayLoading.min.js"></script>
+ <link href="css/WdatePicker.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<link href="css/header.css" rel="stylesheet" media="screen" type="text/css">
+  <script type="text/javascript" src="js/login.js"></script>
+ <div class="header-container"> <div class="wm-1200"> <div class="header-logo">  <a class="lg-scope" href="https://www.quluying.com/"><img src="img/1e629a328e41545326fffae2687a277c.png" alt="去露营网"></a>  </div> <div class="search-container"> <div class="hd-search-wrap"> <div class="hd-search-box"> <div class="hd-search-item" id="hdSearchItem"> <input type="hidden" id="typename"> <span class="select-item" data-id="0" id="selectItem">全部</span> <ul class="down-list" id="downList">  <li data-id="2" data-url="/hotels/">宿营</li>  <li data-id="114" data-url="/outdoor/">活动</li>  <li data-id="4" data-url="/raiders/">攻略</li>  <li data-id="115" data-url="/news/">资讯</li>  </ul> </div> <input type="text" class="hd-search-text searchkeyword" id="hdSearchText" placeholder=""> <input type="button" class="hd-search-btn"> </div> <div class="hd-search-hot" id="hdSearchHot" style="display: none;"> <h4 class="hot-title">热门搜索</h4> <div class="hot-tag">   <a href="https://www.quluying.com/search/cloudsearch?keyword=%E6%98%86%E6%98%8E" target="_blank">昆明</a>  <a href="https://www.quluying.com/search/cloudsearch?keyword=%E7%9F%B3%E6%9E%97" target="_blank">石林</a>  </div> </div> </div> <div class="hd-server-line"> <span class="txt">全国服务热线</span> <span class="num">156 0871 8688</span> </div> </div> </div> </div> <!-- 公用头部 --> <div class="nav-container"> <div class="wm-1200"> <div class="nav-wrap"> <ul class="nav-menu fl"> <li> <a class="item" href="https://www.quluying.com/">首页</a> </li>   <li> <a class="item nav_header_2 active" href="https://www.quluying.com/hotels/" title="宿营">宿营</a> </li>  <li> <a class="item nav_header_114" href="https://www.quluying.com/outdoor/" title="活动">活动</a> </li>  <li> <a class="item nav_header_4" href="https://www.quluying.com/raiders/" title="攻略">攻略</a> </li>  <li> <a class="item nav_header_12" href="https://www.quluying.com/destination/" title="导航">导航</a> </li>  <li> <a class="item nav_header_115" href="https://www.quluying.com/news/" title="资讯">资讯</a> </li>  <li> <a class="item nav_header_" href="https://www.quluying.com/plugins/supplier/" title="供应商">供应商</a> </li>  </ul> <div class="login-box fr" id="loginstatus"><span class="login-after">你好， <a class="name" href="https://www.quluying.com/member/">1109917832</a><a class="link" href="https://www.quluying.com/member/login/loginout">退出</a></span></div> </div> </div> </div> <!-- 主导航 --> <script>
+    var SITEURL = "/";
+    $(function(){
+        //点击展示热搜
+        $("#hdSearchText").on("click",function(event){
+            event.stopPropagation();
+            $("#hdSearchHot").show();
+        });
+        //点击空白区域隐藏
+        $("body").on("click",function(){
+            $("#hdSearchHot").hide();
+        });
+        //绑定hover事件
+        $("#hdSearchItem").hover(function(){
+            $(this).children("#downList").show();
+            $("#hdSearchHot").hide();
+        },function(){
+            $(this).children("#downList").hide()
+        });
+        //选定数据
+        $("#downList > li").on("click",function(){
+            var liData = $(this).text();
+            var typeid = $(this).attr('data-id');
+            var durl = $(this).attr('data-url');
+            $("#selectItem").text(liData);
+            $('#selectItem').attr('data-id',typeid);
+            $('#selectItem').attr('data-url',durl);
+            $("#downList").hide()
+        })
+        //选中导航
+        var typeid = "2";
+        if(typeid!=''){
+            $('.nav_header_'+typeid).addClass('active');
+        }
+        //搜索
+        $('.hd-search-btn').click(function(){
+            var keyword = $('.searchkeyword').val();
+            if(keyword == ''){
+                $('.searchkeyword').focus();
+                return false;
+            }
+            var typeid = $("#selectItem").attr('data-id');
+            var durl = $("#selectItem").attr('data-url');
+            if(typeid==0 || typeid==8){
+                var url = SITEURL+'search/cloudsearch?keyword='+encodeURIComponent(keyword)+"&typeid="+typeid;
+            }else{
+                var url = "https://www.quluying.com"+durl+'all?keyword='+encodeURIComponent(keyword);
+            }
+            location.href = url;
+        })
+        //登陆状态
+        $.ajax({
+            type:"POST",
+            async:false,
+            url:SITEURL+"member/login/ajax_is_login",
+            dataType:'json',
+            success:function(data){
+                if(data.status){
+                    txt = '<span class="login-after">';
+                    txt += '你好， <a class="name" href="https://www.quluying.com/member/">'+data.user.nickname+'</a>';
+                    txt += '<a class="link" href="https://www.quluying.com/member/login/loginout">退出</a>';
+                    txt += '</span>';
+                }else{
+                    txt ='<span class="login-before">';
+                    txt +='<a class="link" href="https://www.quluying.com/member/login">登录</a>';
+                    txt +='丨';
+                    txt +='<a class="link" href="https://www.quluying.com/member/register">注册</a>';
+                    txt +='</span>';
+                }
+                $("#loginstatus").html(txt);
+            }
+        })
+    })
+</script>
+<div class="big">
+    <div class="wm-1200">
+        <div class="st-guide">
+            <a href="https://www.quluying.com/">首页</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;宿营
+        </div>
+        <!--面包屑-->
+
+        <div class="st-hotel-home-top">
+            <form method="post" action="/product/findAllByEs">
+            <div class="st-hotel-search">
+                <dl class="search-dl">
+                    <dt>目的地</dt> <dd>
+                    <input type="text" class="h-text-search destname" onclick="hSearchShow()" placeholder="中文/拼音/首字母">
+                    <div class="mdd-city-box" id="mdd-city-box">
+                        <div class="ss-mdd-tit">
+                            <span>可直接输入城市或城市拼音</span>
+                            <i id="mdd-hot-closed" onclick="hSearchHide()"></i>
+                        </div>
+                        <div class="ss-mdd-box">
+                            <div class="st-tabnav">
+                                <span class="on" data-id="hot">热门</span>
+                                <span data-id="a,b,c">ABC</span>
+                                <span data-id="d,e,f,g">DEFG</span>
+                                <span data-id="h,i,j,k">HIJK</span>
+                                <span data-id="l,m,n">LMN</span>
+                                <span data-id="o,p,q,r">OPQR</span>
+                                <span data-id="s,t,w">STW</span>
+                                <span data-id="x,y,z">XYZ</span>
+                            </div>
+                            <div class="st-tabcon" id="dest_list">
+                                <a href="javascript:;" data-id="38">云南</a>
+                                <a href="javascript:;" data-id="49">上海</a>
+                                <a href="javascript:;" data-id="51">河北</a>
+                                <a href="javascript:;" data-id="58">江苏</a>
+                                <a href="javascript:;" data-id="61">安徽</a>
+                                <a href="javascript:;" data-id="66">湖南</a>
+                                <a href="javascript:;" data-id="67">广西</a>
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                </dl>
+                <script type="text/html" id="tpl_dest_list">
+                {{each list as value i}}
+                    <a href="javascript:;" data-id="{{value.id}}">{{value.kindname}}</a>
+                {{/each}}
+            </script>
+                <script>
+                $(function(){
+                    //按拼音筛选
+                    $('.st-tabnav').find('span').click(function(){
+                        var url = SITEURL+'hotel/ajax_dest';
+                        var id = $(this).attr('data-id');
+                        var dest = $(this).data(id);
+                        var obj = $(this);
+                        if(dest!=undefined){
+                            $("#dest_list").html(dest);
+                        }else{
+                            $.getJSON(url,{dataid:id},function(data){
+                                if(data.list){
+                                    var destlist = template('tpl_dest_list',data);
+                                    obj.data(id,destlist);
+                                    $("#dest_list").html(destlist);
+                                }
+                            })
+                        }
+                        $(this).addClass('on').siblings().removeClass('on');
+                    })
+                    //选中目的地
+                    $('body').delegate('#dest_list a','click',function(){
+                        var destname = $(this).text();
+                        var destid = $(this).attr('data-id');
+                        $(".destname").val(destname);
+                        $(".destname").attr('data-id',destid);
+                        $('.mdd-city-box').hide();
+                    })
+                    //按拼音搜索目的地
+                    $('.destname').keyup(function(){
+                        hSearchHide();
+                    })
+                    $('.destname').Result({url:SITEURL+'destination/ajax_dest_by_pinyin',extraParams:{typeid:2}});
+                })
+            </script>
+                <dl class="search-dl">
+                    <dt>入住时间</dt>
+                    <dd>
+                        <input type="text" class="h-text-search date-ico" id="txtHotelTime1" placeholder="yy-mm-dd" value="2019-10-21"> </dd>
+                </dl>
+                <dl class="search-dl">
+                    <dt>退房时间</dt>
+                    <dd>
+                        <input type="text" class="h-text-search date-ico" id="txtHotelTime2" placeholder="yy-mm-dd" value="2019-10-22">
+                    </dd>
+                </dl>
+                <dl class="search-dl">
+                    <dt>营地类别</dt>
+                    <dd>
+                        <input type="text" name="" class="h-text-search up-ico rankid" id="input-select" value="全部">
+                        <input type="hidden" id="rankid" value="0">
+                        <div class="star-level-box">
+                            <span data-id="1">山地型露营地</span>  <span data-id="2">乡村型露营地</span>
+                            <span data-id="3">海滨型露营地</span>  <span data-id="4">湖畔型露营地</span>
+                            <span data-id="5">森林型露营地</span>  <span data-id="6">精品特色名宿</span>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="search-dl">
+                    <dt>关键词</dt>
+                    <dd>
+                        <input type="text" name="productName" th:value="${productName}" class="h-text-search keyword">
+                    </dd>
+                </dl>
+                <div class="st-hs-btn">
+                <input  type="submit" value="搜索" />
+                    <!--<a href="javascript:;">搜索</a>-->
+                </div>
+            </div>
+            </form>
+            <!--酒店首页条件搜索-->
+            <script>
+              $(function(){
+                  //酒店搜索
+                  $('.st-hs-btn').click(function(){
+                        var rankid = $("#rankid").val();
+                        var destname = $(".destname").val();
+                        var params={keyword:$(".keyword").val(),starttime:$('#txtHotelTime1').val(),endtime:$('#txtHotelTime2').val()}
+                        var query=new Array();
+                        var destpy = "";
+                        if(destname!=''){
+                            $.ajax({type:'POST',url:SITEURL+'hotel/ajax_dest_py',async:false,data:'destname='+destname,success:function(data){
+                                destpy = data;
+                            }})
+                        }
+                      var url = SITEURL+'hotels/';
+                      var py = '';
+                      if(destpy!=''){
+                          py = destpy;
+                      }
+                      url+=py+'-'+rankid+'-0-0-0-0-1';
+                      for(var k in params){
+                          if(params[k]!=''){
+                              query.push(k+'='+params[k]);
+                          }
+                      }
+                      if(query.length>0){
+                          url+='?'+query.join('&');
+                      }
+                      window.location.href = "/product/findAllByEs";
+                  })
+              })
+          </script> <!--酒店首页轮播图-->
+    <div id="st-hotel-slideBox" class="st-hotel-slideBox">
+        <div class="hd">
+            <ul>
+            <li class="on">0</li>
+                <li class="">1</li>
+                <li class="">2</li>
+            </ul>
+        </div>
+        <div class="bd">
+        <ul style="position: relative; width: 768px; height: 324px;">
+            <li style="position: absolute; width: 768px; left: 0px; top: 0px; display: list-item;">
+                <a href="https://www.quluying.com/hotels/zhongguo-0-0-0-0-0-1" target="_blank" rel="nofollow">
+                    <img src="img/b48995667843251f27da6c78273e3b92_768x324.jpg" alt="">
+                </a>
+                <span style="position: absolute;bottom:1px;right:1px;">
+                    <img src="img/ad_ico.gif">
+                </span>
+            </li>
+            <li style="position: absolute; width: 768px; left: 0px; top: 0px; display: none;">
+                <a href="http://www.ahose.com.cn/" target="_blank" rel="nofollow">
+                    <img src="img/712f2d52a9b1994d9b2754f44fce9df6_768x324.jpg" alt="安徽合肥户外用品展">
+                </a>
+                <span style="position: absolute;bottom:1px;right:1px;">
+                    <img src="img/ad_ico.gif">
+                </span>
+            </li>
+            <li style="position: absolute; width: 768px; left: 0px; top: 0px; display: none;">
+                <a href="https://www.quluying.com/news/3-1" target="_blank" rel="nofollow">
+                    <img src="img/3693f1e3d83509d896e3f0162800c5a6_768x324.jpg" alt="尚格连锁房车露营展 2019武汉站">
+                </a>
+                <span style="position: absolute;bottom:1px;right:1px;">
+                    <img src="img/ad_ico.gif">
+                </span>
+            </li>
+        </ul>
+        </div>
+        <!--前/后按钮代码-->
+        <a class="prev" href="javascript:void(0)"></a>
+        <a class="next" href="javascript:void(0)"></a>
+    </div>
+    <!--酒店首页轮播图结束--> <!--栏目介绍-->
+    <div class="st-comm-introduce">
+        <div class="st-comm-introduce-txt">
+            <p>去露营网(www.quluying.com)为您提供全国露营地点查询，露营地预订，网上预订露营地服务。露营地商家入驻请致电：158&nbsp;0871 7818 或QQ：892592266 详谈，期待您的来电！</p>
+        </div>
+    </div>
+    <div class="st-hotel-home-box">
+        <div class="hotel-tit-ico">
+            <h3 class="hot-ico">热门营地</h3>
+            <a class="more" href="https://www.quluying.com/hotels/zhongguo-0-0-0-0-0-1" target="_blank">查看更多</a>
+        </div>
+        <div class="hotel-tj-box">
+            <ul>
+                <li th:each="product : ${products}">
+                    <div class="pic">
+                        <img th:src="${product.productImg}" th:alt="${product.productName}" th:title="${product.productName}" style="display: inline;">
+                    </div>
+                    <div class="txt">
+                        <a th:href="'http://192.168.50.211:9301/findbyid?id='+ ${product.id}" target="_blank" title="途居芜湖龙山房车露营地">
+                            <i></i>
+                            <p class="ads" th:text="${product.productName}">途居芜湖龙山房车露营地</p>
+                            <p class="price">
+                                <span>
+                                    <span class="currency_sy">￥</span>
+                                    <span th:text="${product.productPrice}">429</span>
+                                </span>起
+                             </p>
+                        </a>
+                    </div>
+                </li>
+                <!--<li>
+                    <div class="pic">
+                        <img src="img/eb153765e31e7f0f2ca7a0ae1288cfa3_386x241.jpg" alt="早安雄库鲁帐篷酒店" title="早安雄库鲁帐篷酒店" style="display: inline;">
+                    </div>
+                    <div class="txt">
+                        <a href="https://www.quluying.com/hotels/show_3.html" target="_blank" title="早安雄库鲁帐篷酒店">
+                            <i></i>
+                            <p class="ads">早安雄库鲁帐篷酒店</p>
+                            <p class="price">
+                                <span>
+                                    <span class="currency_sy">￥
+                                    </span>580
+                                </span>起
+                             </p>
+                        </a>
+                    </div>
+                </li>
+                <li class="mr-0">
+                    <div class="pic">
+                        <img src="img/0c2d03dbba01b6bcf880fcb0b8091a78_386x241.jpg" alt="途居湘潭昭山房车露营地" title="途居湘潭昭山房车露营地" style="display: inline;">
+                    </div>
+                    <div class="txt">
+                        <a href="https://www.quluying.com/hotels/show_44.html" target="_blank" title="途居湘潭昭山房车露营地">
+                            <i></i>
+                            <p class="ads">途居湘潭昭山房车露营地</p>
+                            <p class="price">
+                                <span>
+                                    <span class="currency_sy">￥
+                                    </span>439
+                                </span>起
+                             </p>
+                        </a>
+                    </div>
+                </li>-->
+            </ul>
+        </div>
+        <!--热门推荐-->
+        <div class="st-hotel-home-box">
+            <div class="hotel-tit-ico">
+                <h3 class="jx-ico">精选宿营</h3>
+                <a class="more" href="https://www.quluying.com/hotels/zhongguo-0-0-0-0-0-1" target="_blank">查看更多</a>
+            </div>
+            <div class="hotel-jx-box">
+                <ul>
+                    <li th:each="pro : ${products}">
+                        <div class="pic">
+                            <a href="https://www.quluying.com/hotels/show_39.html" target="_blank" title="途居黄山房车露营地">
+                                <img th:src="${pro.productImg}" th:alt="${pro.productName}"  style="display: inline;">
+                            </a>
+                        </div>
+                        <div class="txt" >
+                            <p class="bt">
+                                <a href="https://www.quluying.com/hotels/show_39.html" target="_blank" title="途居黄山房车露营地" th:text="${pro.productName}">途居黄山房车露营地</a>
+                                <span>
+                                    <i class="currency_sy">￥</i>
+                                    <b th:text="${pro.productPrice}">459</b>起
+                                </span>
+                            </p>
+                            <m class="num">
+                                <span>满意度：100</span>
+                                <span>销量：38</span>
+                            </m>
+                            <p class="ads">
+                                <span>安徽省黄山市黄山风景区西大门</span>
+                            </p>
+                        </div>
+                        <div class="list" th:each="house : ${houses}" th:if="${pro.id == house.prouductId}" >
+                            <a href="https://www.quluying.com/hotels/show_39.html" target="_blank" >
+                                <span th:text="${house.houseName}">情侣房车</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>
+                                    <span th:text="${house.housePrice}">459</span>起
+                                </em>
+                            </a>
+                        </div>
+                        <a class="more-fx" href="https://www.quluying.com/hotels/show_39.html" target="_blank">更多房型</a>
+                    </li>
+                    <!--<li>
+                        <div class="pic">
+                            <a href="https://www.quluying.com/hotels/show_49.html" target="_blank" title="林芝华侨城南山国际汽车营地">
+                                <img src="img/ed81cb4edf5bc36a7937b71fd953c3eb_285x178.jpg" alt="林芝华侨城南山国际汽车营地" style="display: inline;">
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <p class="bt">
+                                <a href="https://www.quluying.com/hotels/show_49.html" target="_blank" title="林芝华侨城南山国际汽车营地">林芝华侨城南山国际汽车营地</a>
+                                <span>
+                                    <i class="currency_sy">￥</i>
+                                    <b>651</b>起
+                                </span>
+                            </p>
+                            <m class="num">
+                                <span>满意度：100</span>
+                                <span>销量：1</span>
+                            </m>
+                            <p class="ads">
+                                <span>西藏自治区林芝市巴宜区八一镇拉林高等级公路与318国道交汇处</span>
+                            </p>
+                        </div>
+                        <div class="list">
+                            <a href="https://www.quluying.com/hotels/show_49.html" target="_blank">
+                                <span>丛林帐篷(双床/无早/2人)</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>651起
+                                </em>
+                            </a>
+                            <a href="https://www.quluying.com/hotels/show_49.html" target="_blank">
+                                <span>湖景帐篷(双床/无早/2人)</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>696起
+                                </em>
+                            </a>
+                        </div>
+                        <a class="more-fx" href="https://www.quluying.com/hotels/show_49.html" target="_blank">更多房型</a>
+                    </li>
+                    <li>
+                        <div class="pic">
+                            <a href="https://www.quluying.com/hotels/show_31.html" target="_blank" title="东莞虎门鹅义山房车露营地">
+                                <img src="img/1f32591b71983d9c3262181103829ead_285x178.jpg" alt="东莞虎门鹅义山房车露营地" style="display: inline;">
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <p class="bt">
+                                <a href="https://www.quluying.com/hotels/show_31.html" target="_blank" title="东莞虎门鹅义山房车露营地">东莞虎门鹅义山房车露营地</a>
+                                <span>
+                                    <i class="currency_sy">￥</i>
+                                    <b>200</b>起
+                                </span>
+                            </p>
+                            <m class="num">
+                                <span>满意度：100</span>
+                                <span>销量：10</span>
+                            </m>
+                            <p class="ads">
+                                <span>东莞虎门镇威远外环岛路47号</span>
+                            </p>
+                        </div>
+                        <div class="list">
+                            <a href="https://www.quluying.com/hotels/show_31.html" target="_blank">
+                                <span>德系房车</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>880起
+                                </em>
+                            </a>
+                            <a href="https://www.quluying.com/hotels/show_31.html" target="_blank">
+                                <span>美系房车</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>1080起
+                                </em>
+                            </a>
+                        </div>
+                        <a class="more-fx" href="https://www.quluying.com/hotels/show_31.html" target="_blank">更多房型</a>
+                    </li>
+                    <li class="mr_0">
+                        <div class="pic">
+                            <a href="https://www.quluying.com/hotels/show_14.html" target="_blank" title="镇江金山湖国际房车露营地">
+                                <img src="img/f9f99a6c85f2df54536e7111699d3cf2_285x178.jpg" alt="镇江金山湖国际房车露营地" style="display: inline;">
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <p class="bt">
+                                <a href="https://www.quluying.com/hotels/show_14.html" target="_blank" title="镇江金山湖国际房车露营地">镇江金山湖国际房车露营地</a>
+                                <span>
+                                    <i class="currency_sy">￥</i>
+                                    <b>559</b>起
+                                </span>
+                            </p>
+                            <m class="num">
+                                <span>满意度：100</span>
+                                <span>销量：4</span>
+                            </m>
+                            <p class="ads">
+                                <span>镇江市润州区京江路333号(金山湖与长江交汇处)</span>
+                            </p>
+                        </div>
+                        <div class="list">
+                            <a href="https://www.quluying.com/hotels/show_14.html" target="_blank">
+                                <span>棋牌大床房</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>686起
+                                </em>
+                            </a>
+                            <a href="https://www.quluying.com/hotels/show_14.html" target="_blank">
+                                <span>三人标间</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>706起
+                                </em>
+                            </a>
+                        </div>
+                        <a class="more-fx" href="https://www.quluying.com/hotels/show_14.html" target="_blank">更多房型</a>
+                    </li>
+                    <li>
+                        <div class="pic">
+                            <a href="https://www.quluying.com/hotels/show_56.html" target="_blank" title="海西水上雅丹房车露营地">
+                                <img src="img/c40cae88232caf31388edf416d6b21d2_285x178.jpg" alt="海西水上雅丹房车露营地" style="display: inline;">
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <p class="bt">
+                                <a href="https://www.quluying.com/hotels/show_56.html" target="_blank" title="海西水上雅丹房车露营地">海西水上雅丹房车露营地</a>
+                                <span>
+                                    <i class="currency_sy">￥</i>
+                                    <b>519</b>起
+                                </span>
+                            </p>
+                            <m class="num">
+                                <span>满意度：100</span>
+                                <span>销量：0</span>
+                            </m> <p class="ads">
+                            <span>青海省海西州大柴旦行委G315线900公里处</span>
+                        </p>
+                        </div>
+                        <div class="list">
+                            <a href="https://www.quluying.com/hotels/show_56.html" target="_blank">
+                                <span>标准房</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>519起
+                                </em>
+                            </a>
+                            <a href="https://www.quluying.com/hotels/show_56.html" target="_blank">
+                                <span>温馨双人房车</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>546起
+                                </em>
+                            </a>
+                        </div>
+                        <a class="more-fx" href="https://www.quluying.com/hotels/show_56.html" target="_blank">更多房型</a>
+                    </li>
+                    <li>
+                        <div class="pic">
+                            <a href="https://www.quluying.com/hotels/show_54.html" target="_blank" title="丽江中济海房车露营地">
+                                <img src="img/f24310c0b8e444a6d14c78acf18b2082_285x178.jpg" alt="丽江中济海房车露营地" style="display: inline;">
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <p class="bt">
+                                <a href="https://www.quluying.com/hotels/show_54.html" target="_blank" title="丽江中济海房车露营地">丽江中济海房车露营地</a>
+                                <span>
+                                    <i class="currency_sy">￥</i>
+                                    <b>150</b>起
+                                </span>
+                            </p>
+                            <m class="num">
+                                <span>满意度：100</span>
+                                <span>销量：0</span>
+                            </m>
+                            <p class="ads">
+                                <span></span>
+                            </p>
+                        </div>
+                        <div class="list">
+                            <a href="https://www.quluying.com/hotels/show_54.html" target="_blank">
+                                <span>房车营位</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>150起
+                                </em>
+                            </a>
+                        </div>
+                        <a class="more-fx" href="https://www.quluying.com/hotels/show_54.html" target="_blank">更多房型</a>
+                    </li>
+                    <li>
+                        <div class="pic"><a href="https://www.quluying.com/hotels/show_53.html" target="_blank" title="摩尔农庄全国青少年户外体育活动营地">
+                            <img src="img/3630d0cf54226a656917554fd290d0bb_285x178.jpg" alt="摩尔农庄全国青少年户外体育活动营地" style="display: inline;">
+                        </a>
+                        </div>
+                        <div class="txt">
+                            <p class="bt">
+                                <a href="https://www.quluying.com/hotels/show_53.html" target="_blank" title="摩尔农庄全国青少年户外体育活动营地">摩尔农庄全国青少年户外体育活动营地</a>
+                                <span>
+                                    <d>电询</d>
+                                </span></p>
+                            <m class="num">
+                                <span>满意度：100</span>
+                                <span>销量：0</span>
+                            </m>
+                            <p class="ads">
+                                <span>云南省楚雄州楚雄紫溪山景区</span>
+                            </p>
+                        </div>
+                        <div class="list">
+                        </div>
+                        <a class="more-fx" href="https://www.quluying.com/hotels/show_53.html" target="_blank">更多房型</a>
+                    </li>
+                    <li class="mr_0">
+                        <div class="pic">
+                            <a href="https://www.quluying.com/hotels/show_36.html" target="_blank" title="途居扬州瓜州房车露营地">
+                                <img src="img/4a1fa68ba7796fe3a740c32f5e781fcd_285x178.jpg" alt="途居扬州瓜州房车露营地" style="display: inline;">
+                            </a>
+                        </div>
+                        <div class="txt">
+                            <p class="bt">
+                                <a href="https://www.quluying.com/hotels/show_36.html" target="_blank" title="途居扬州瓜州房车露营地">途居扬州瓜州房车露营地</a>
+                                <span>
+                                    <i class="currency_sy">￥</i>
+                                    <b>436</b>起
+                                </span>
+                            </p>
+                            <m class="num">
+                                <span>满意度：100</span>
+                                <span>销量：6</span>
+                            </m>
+                            <p class="ads">
+                                <span>江苏省扬州市瓜洲古镇的滨江湿地森林公园内</span>
+                            </p>
+                        </div>
+                        <div class="list">
+                            <a href="https://www.quluying.com/hotels/show_36.html" target="_blank">
+                                <span>树屋(单床/双早/2人)</span>
+                                <em>
+                                    <span class="currency_sy">￥</span>436起
+                                </em>
+                            </a>
+                            <a href="https://www.quluying.com/hotels/show_36.html" target="_blank">
+                                <span>2019情人节套餐</span>
+                                <em>电询 </em>
+                            </a>
+                        </div>
+                        <a class="more-fx" href="https://www.quluying.com/hotels/show_36.html" target="_blank">更多房型</a>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+        <!--精选酒店-->
+    </div>
+</div>
+</div>
+    <!-- 新增友情链接-->
+    <div class="wm-1200">
+        <div class="links">
+            <a class="act">友情链接</a>
+        </div>
+        <div class="dearer-line"></div>
+        <div class="links-bd">
+            <a href="https://www.quluying.com/outdoor/" target="_blank">露营</a>
+            <a href="https://www.quluying.com/yunnan/" target="_blank">云南露营</a>
+            <a href="https://www.quluying.com/outdoor/" target="_blank">露营活动</a>
+            <a href="https://www.quluying.com/outdoor/" target="_blank">户外露营</a>
+            <a href="https://www.quluying.com/" target="_blank">去</a>
+            <a href="https://www.quluying.com/" target="_blank">预订网</a>
+            <a href="http://www.road-trip.cn/" target="_blank">路程网</a>
+            <a href="https://www.yiyang.fun/" target="_blank">益阳范</a>
+            <a href="https://www.fxbly.com/" target="_blank">呼伦贝尔旅游攻略</a>
+            <a href="http://www.xcq.net.cn/" target="_blank">深圳小产权房</a>
+            <a href="http://www.yncdz.cn/" target="_blank">昆明充电桩</a>
+        </div>
+    </div><!-- 新增友情链接结束-->
+    <link href="css/footer.css" rel="stylesheet" media="screen" type="text/css">
+  <div class="clear"></div>
+    <div class="footer-container clear">
+        <div class="wm-1200">
+            <div class="footer-help clearfix">
+                <dl class="help-list">
+                    <dt>
+                        <a href="https://www.quluying.com/hotels/#" target="_blank">预订常见问题</a>
+                    </dt>
+                    <dd>
+                        <a href="https://www.quluying.com/help/show_46.html" target="_blank" rel="nofollow">单房差是什么？</a>
+                        <a href="https://www.quluying.com/help/show_43.html" target="_blank" rel="nofollow">如何获取发票？</a>
+                        <a href="https://www.quluying.com/help/show_16.html" target="_blank" rel="nofollow">预订露营地的问题</a>
+                    </dd>
+                </dl>
+                <dl class="help-list">
+                    <dt>
+                        <a href="https://www.quluying.com/hotels/#" target="_blank">付款方式</a>
+                    </dt>
+                    <dd>
+                    </dd>
+                </dl>
+                <dl class="help-list">
+                    <dt>
+                        <a href="https://www.quluying.com/hotels/#" target="_blank">加盟合作</a>
+                    </dt>
+                    <dd>
+                        <a href="https://www.quluying.com/help/show_31.html" target="_blank" rel="nofollow">加盟优势</a>
+                        <a href="https://www.quluying.com/help/show_32.html" target="_blank" rel="nofollow">入驻材料</a>
+                    </dd>
+                </dl>
+                <dl class="help-list">
+                    <dt>
+                        <a href="https://www.quluying.com/hotels/#" target="_blank">其它问题</a>
+                    </dt>
+                    <dd>
+                        <a href="https://www.quluying.com/help/show_1.html" target="_blank" rel="nofollow">纯玩是什么意思？</a>
+                    </dd>
+                </dl>
+                <div class="qr-code">
+                    <img src="img/5f26cbff1345b730f65266a8f0672c9e.jpg">
+                    <span class="txt">微信扫一扫</span>
+                </div>
+            </div>
+            <hr class="hr-line">
+            <div class="footer-wrap clearfix">
+                <div class="footer-logo fl">
+                    <a class="item-tell" href="https://www.quluying.com/">
+                        <img src="img/1e629a328e41545326fffae2687a277c.png">
+                    </a>
+                </div>
+                <div class="footer-info fr">
+                    <ul class="footer-menu clearfix">
+                        <li>
+                            <a href="https://www.quluying.com/servers/index_1.html" target="_blank" rel="nofollow">关于我们</a>丨
+                        </li>
+                        <li>
+                        </li>
+                        <li>
+                            <a href="https://www.quluying.com/servers/index_12.html" target="_blank" rel="nofollow">广告招商</a>丨
+                        </li>
+                        <li>
+                        </li>
+                        <li>
+                            <a href="https://www.quluying.com/servers/index_2.html" target="_blank" rel="nofollow">联系我们</a>丨
+                        </li>
+                        <li>
+                        </li>
+                        <li>
+                            <a href="https://www.quluying.com/servers/index_4.html" target="_blank" rel="nofollow">支付方式</a>丨
+                        </li>
+                        <li>
+                        </li>
+                        <li>
+                            <a href="https://www.quluying.com/servers/index_11.html" target="_blank" rel="nofollow">新手上路</a>
+                        </li>
+                        <li>
+                        </li>
+                    </ul>
+                    <div class="foot-edit clearfix">
+                        <p>Copyright © 2018　版权所有　云南网库信息技术有限公司　滇ICP备14003019号
+                            <script type="text/javascript" src="js/z_stat.php"></script>
+                            <script src="js/core.php" charset="utf-8" type="text/javascript"></script>
+                            <a href="https://www.cnzz.com/stat/website.php?web_id=1275061751" target="_blank" title="站长统计">站长统计</a>
+                        </p>
+                        <p>地址：云南省昆明市小康大道国福现代城3栋18楼　投诉建议邮箱：jianyi@quluying.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--百度自动推送开始-->
+        <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script> <!--360自动收录开始--> <script>(function(){
+var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?d0f2190e19325eaaeb781ca07f0f2212":"https://jspassport.ssl.qhimg.com/11.0.1.js?d0f2190e19325eaaeb781ca07f0f2212";
+document.write('<script src="' + src + '" id="sozz"><\/script>');
+})();
+</script><script src="js/11.0.1.js" id="sozz"></script><script charset="utf-8" src="js/ab77b6ea7f3fbf79.js"></script> <!--360自动收录结束--> <script src="js/qqkefu.js"></script>  
+   <script type="text/javascript" src="js/WdatePicker.js"></script>
+ <script type="text/javascript" src="js/result.js"></script>
+ <link type="text/css" href="css/result.css" rel="stylesheet"> <script>
+    $(function(){
+        //酒店首页焦点图
+        $('.st-hotel-slideBox').slide({
+mainCell:'.bd ul',
+ effect:"fold",
+interTime: 5000,
+delayTime: 500,
+autoPlay:true,
+                        switchLoad:'original-src'
+})
+        //酒店星级下拉选择
+        $('#input-select').click(function(){
+            var ul = $('.star-level-box');
+            if(ul.css("display")=="none"){
+                $('#input-select').removeClass('up-ico').addClass('down-ico')
+                ul.slideDown("fast");
+            }else{
+                ul.slideUp("fast");
+                $('#input-select').removeClass('down-ico').addClass('up-ico')
+            }
+        });
+        $(".star-level-box span").click(function(){
+            $('#input-select').removeClass('down-ico').addClass('up-ico')
+            var txt = $(this).text();
+            var rankid = $(this).attr('data-id');
+            $("#rankid").val(rankid);
+            $("#input-select").val(txt);
+            var value = $(this).attr("rel");
+            $(".star-level-box").hide();
+        });
+        //酒店预订时间选择
+        $("#txtHotelTime1").focus(function(){
+            $("#txtHotelTime2").attr('value','');
+            WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d',maxDate:'#F{$dp.$D(\'txtHotelTime2\',{d:-1});}',doubleCalendar:true,isShowClear:false,readOnly:true,errDealMode:1})
+            $("#txtHotelTime1").css("color","#333");
+            $("#txtHotelTime2").blur();
+        })
+        $("#txtHotelTime2").focus(function(){
+            WdatePicker({minDate:'#F{$dp.$D(\'txtHotelTime1\',{d:1});}',dateFmt:'yyyy-MM-dd',doubleCalendar:true,isShowClear:false,readOnly:true,errDealMode:1});
+            $("#txtHotelTime2").css("color","#333");
+            $("#txtHotelTime2").blur();
+        })
+    })
+    //酒店搜索目的地弹出框
+    function hSearchShow(){
+        $('.mdd-city-box').show()
+    }
+    function hSearchHide(){
+        $('.mdd-city-box').hide()
+    }
+</script> 
+</div></div><div class="result" style="display: none; position: absolute; z-index: 99;"></div>
+    <link type="text/css" href="css/saved_resource" rel="stylesheet">
+    
+  <link type="text/css" href="css/layer.css" rel="stylesheet">
+  
+  <div></div>
+    
+      
+      <div class="st-side-menu-block" style="right:0px">
+        <div class="st-side-menu-list">
+            <div class="st-side-call">
+                <div class="call-set">
+                    <i class="call-close"></i>
+                    <input type="text" class="call-num" id="freekefu_phone" placeholder="请输入您的电话号码">
+                    <input type="submit" class="call-btn" id="freekefu_btn" value="立即免费通话">
+                    <p class="call-txt">输入电话号码，点击免费通话、稍后我们将与您联系，此次通话将不收取您任何费用，请注意接听。</p>
+                </div>
+            </div>
+            <ul class="menu-ul-child">
+                <li>
+                    <span class="side-qq"></span>
+                    <div class="child-block">
+                        <div class="side-online-qq">
+                            <div class="online-tit">在线咨询</div>
+                                                        <dl class="online-group">
+                                <dt>期待与您交流</dt>
+                                <dd class="clearfix">
+                                                                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=23359161&amp;site=qq&amp;menu=yes">营小萌</a>
+                                                                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=50565637&amp;site=qq&amp;menu=yes">营小可</a>
+                                                                    </dd>
+                            </dl>
+                                                   </div>
+                    </div>
+                </li>
+                                <li>
+                    <span class="side-phone"></span>
+                    <div class="child-block">
+                        <div class="side-link-num">客服电话：156 0871 8688</div>
+                    </div>
+                </li>
+                                                <li>
+                    <span class="side-wechat"></span>
+                    <div class="child-block">
+                        <div class="side-wechat-Sweep">
+                            <img src="img/5f26cbff1345b730f65266a8f0672c9e.jpg">
+                            <p>关注官方微信</p>
+                        </div>
+                    </div>
+                </li>
+                                            </ul>
+            <div class="st-side-back-top">TOP</div>
+            <div class="st-side-close"></div>
+        </div>
+        <div class="st-side-flexible-block"></div>
+    </div><!-- 黑色边栏客服 -->
+<div style="position: absolute; z-index: 19700; top: -1970px; left: -1970px;"><iframe style="width: 186px; height: 198px;" src="js/My97DatePicker.html" frameborder="0" border="0" scrolling="no"></iframe></div></body></html>

@@ -1,0 +1,401 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base th:href="${#request.getContextPath()}+'/'">
+    <title>找回密码-去露营网</title>
+    <link type="text/css" href="css/user.css" rel="stylesheet">
+<link type="text/css" href="css/base.css" rel="stylesheet">
+<link type="text/css" href="css/extend.css" rel="stylesheet">
+ <script src="js/push.js"></script><script>
+    window.SITEURL = "/";
+    window.CURRENCY_SYMBOL="￥";
+</script> <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/jquery.validate.js"></script>
+<script type="text/javascript" src="js/jquery.validate.addcheck.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+ <link rel="stylesheet" href="css/layer.css" id="layuicss-skinlayercss"></head> <body>
+<link href="css/header.css" rel="stylesheet" media="screen" type="text/css">
+  <script type="text/javascript" src="js/login.js"></script>
+ <div class="header-container">
+     <div class="wm-1200">
+         <div class="header-logo">
+             <a class="lg-scope" href="https://www.quluying.com/">
+                 <img src="img/1e629a328e41545326fffae2687a277c.png" alt="去露营网">
+             </a>
+         </div>
+         <div class="search-container">
+             <div class="hd-search-wrap">
+                 <div class="hd-search-box">
+                     <div class="hd-search-item" id="hdSearchItem">
+                         <input type="hidden" id="typename">
+                         <span class="select-item" data-id="0" id="selectItem">全部</span>
+                         <ul class="down-list" id="downList">
+                             <li data-id="2" data-url="/hotels/">宿营</li>
+                             <li data-id="114" data-url="/outdoor/">活动</li>
+                             <li data-id="4" data-url="/raiders/">攻略</li>
+                             <li data-id="115" data-url="/news/">资讯</li>
+                         </ul>
+                     </div>
+                     <input type="text" class="hd-search-text searchkeyword" id="hdSearchText" placeholder="">
+                     <input type="button" class="hd-search-btn">
+                 </div>
+                 <div class="hd-search-hot" id="hdSearchHot" style="display: none;">
+                     <h4 class="hot-title">热门搜索</h4> <div class="hot-tag">
+                     <a href="https://www.quluying.com/search/cloudsearch?keyword=%E6%98%86%E6%98%8E" target="_blank">昆明</a>
+                     <a href="https://www.quluying.com/search/cloudsearch?keyword=%E7%9F%B3%E6%9E%97" target="_blank">石林</a>
+                 </div>
+                 </div>
+             </div>
+             <div class="hd-server-line">
+             <span class="txt">全国服务热线</span>
+                 <span class="num">156 0871 8688</span>
+             </div>
+         </div>
+     </div>
+ </div> <!-- 公用头部 -->
+<div class="nav-container">
+    <div class="wm-1200">
+        <div class="nav-wrap">
+            <ul class="nav-menu fl">
+                <li> <a class="item" href="https://www.quluying.com/">首页</a> </li>
+                <li> <a class="item nav_header_2" href="https://www.quluying.com/hotels/" title="宿营">宿营</a> </li>
+                <li> <a class="item nav_header_114" href="https://www.quluying.com/outdoor/" title="活动">活动</a> </li>
+                <li> <a class="item nav_header_4" href="https://www.quluying.com/raiders/" title="攻略">攻略</a> </li>
+                <li> <a class="item nav_header_12" href="https://www.quluying.com/destination/" title="导航">导航</a> </li>
+                <li> <a class="item nav_header_115" href="https://www.quluying.com/news/" title="资讯">资讯</a> </li>
+                <li> <a class="item nav_header_" href="https://www.quluying.com/plugins/supplier/" title="供应商">供应商</a> </li>
+            </ul>
+            <div class="login-box fr" id="loginstatus">
+                <span class="login-before">
+                    <a class="link" href="https://www.quluying.com/member/login">登录</a>丨
+                    <a class="link" href="https://www.quluying.com/member/register">注册</a>
+                </span></div>
+        </div> </div>
+</div>
+<!-- 主导航 -->
+<script>
+    var SITEURL = "/";
+    $(function(){
+        //点击展示热搜
+        $("#hdSearchText").on("click",function(event){
+            event.stopPropagation();
+            $("#hdSearchHot").show();
+        });
+        //点击空白区域隐藏
+        $("body").on("click",function(){
+            $("#hdSearchHot").hide();
+        });
+        //绑定hover事件
+        $("#hdSearchItem").hover(function(){
+            $(this).children("#downList").show();
+            $("#hdSearchHot").hide();
+        },function(){
+            $(this).children("#downList").hide()
+        });
+        //选定数据
+        $("#downList > li").on("click",function(){
+            var liData = $(this).text();
+            var typeid = $(this).attr('data-id');
+            var durl = $(this).attr('data-url');
+            $("#selectItem").text(liData);
+            $('#selectItem').attr('data-id',typeid);
+            $('#selectItem').attr('data-url',durl);
+            $("#downList").hide()
+        })
+        //选中导航
+        var typeid = "";
+        if(typeid!=''){
+            $('.nav_header_'+typeid).addClass('active');
+        }
+        //搜索
+        $('.hd-search-btn').click(function(){
+            var keyword = $('.searchkeyword').val();
+            if(keyword == ''){
+                $('.searchkeyword').focus();
+                return false;
+            }
+            var typeid = $("#selectItem").attr('data-id');
+            var durl = $("#selectItem").attr('data-url');
+            if(typeid==0 || typeid==8){
+                var url = SITEURL+'search/cloudsearch?keyword='+encodeURIComponent(keyword)+"&typeid="+typeid;
+            }else{
+                var url = "https://www.quluying.com"+durl+'all?keyword='+encodeURIComponent(keyword);
+            }
+            location.href = url;
+        })
+        //登陆状态
+        $.ajax({
+            type:"POST",
+            async:false,
+            url:SITEURL+"member/login/ajax_is_login",
+            dataType:'json',
+            success:function(data){
+                if(data.status){
+                    txt = '<span class="login-after">';
+                    txt += '你好， <a class="name" href="https://www.quluying.com/member/">'+data.user.nickname+'</a>';
+                    txt += '<a class="link" href="https://www.quluying.com/member/login/loginout">退出</a>';
+                    txt += '</span>';
+                }else{
+                    txt ='<span class="login-before">';
+                    txt +='<a class="link" href="https://www.quluying.com/member/login">登录</a>';
+                    txt +='丨';
+                    txt +='<a class="link" href="https://www.quluying.com/member/register">注册</a>';
+                    txt +='</span>';
+                }
+                $("#loginstatus").html(txt);
+            }
+        })
+    })
+</script> <div class="getback-pw-box">
+    <div class="getback-pw-con">
+        <div class="getback-pw-tit">找回密码</div>
+        <div class="getback-pw-step">
+            <span class="on"><i>1</i><em>验证身份</em></span>
+            <span><i>2</i><em>重置密码</em></span> <span><i>3</i><em>完成</em></span>
+        </div> <div class="reg-cont-box">
+        <form id="findfrm" method="post" action="/user/verify" novalidate="novalidate">
+            <ul>
+                <li>
+                    <span class="bt-sp">手机/邮箱：</span>
+                    <input type="text" id="loginName" name="loginName" class="reg-text w230" placeholder="请输入手机号和邮箱">
+                    <span class="msg_contain reg-pass-ico"></span>
+                </li>
+                <li>
+                    <span class="bt-sp">验证码：</span>
+                    <input type="text" name="checkcode" id="checkcode" class="reg-text w105">
+                    <span class="reg-yzm"><img id="img" src="/user/createImg"  width="114" height="31"></span>
+                    <span class="reg-change"><a id="changeImg" href="javascript:;">看不清，换一张</a></span>
+                    <span class="msg_contain reg-pass-ico"></span> </li>
+            </ul>
+            <input type="hidden" name="frmcode" value="3b4de745fc3e4e6e0222e6bcbeba3a2c">
+            <div class="now-reg-btn">
+                <a href="javascript:;">下一步</a>
+            </div>
+        </form>
+        <script>
+
+                  $(function(){
+
+                      $('.now-reg-btn').click(function(){
+                         var loginName = $("#loginName").val();
+                         window.location.href = "/user/verify?loginName=" + loginName;
+                          $('#findfrm').submit();
+                      })
+                      $("#findfrm").validate({
+                          rules: {
+                              'loginName': {
+                                  required: true,
+                                  isMobileEmail: true,
+                                  remote: {
+                                      url: SITEURL + 'user/findName',
+                                      type: 'post',
+                                  },
+                                  'checkcode': {
+                                      required: true,
+                                      remote: {
+                                          url: SITEURL + 'user/code',
+                                          type: 'post',
+                                          data: {
+                                              checkcode: function () {
+                                                  return $("#checkcode").val();
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                          },
+                              messages: {
+                                  'loginName': {
+                                      required: '登陆名称不能为空',
+                                      resultDesc: '该帐号不存在'
+                                  },
+                                  'checkcode': {
+                                      required: '验证码不能为空',
+                                      resultDesc: '验证码错误'
+                                  }
+                              },
+                              errorPlacement: function (error, element) {
+                                  $(element).parents('li:first').find('.msg_contain').html(error);
+                                  $(element).parents('li:first').find('.msg_contain').addClass('reg-error-txt').removeClass('reg-pass-ico');
+                              },
+                              success: function (resultDesc, element) {
+                                  $(element).parents('li:first').find('.msg_contain').html('');
+                                  $(element).parents('li:first').find('.msg_contain').addClass('reg-pass-ico').removeClass('reg-error-txt');
+                              }
+
+                      });
+
+
+                  })
+
+                  $("#changeImg").click(function () {
+
+                      $("#img").attr("src","http://localhost:9301/user/createImg?d="+Math.random());
+                  })
+              </script>
+    </div>
+    </div>
+</div>
+<!-- 找回密码 -->
+<link href="css/footer.css" rel="stylesheet" media="screen" type="text/css">
+  <div class="clear"></div>
+<div class="footer-container clear">
+    <div class="wm-1200">
+        <div class="footer-help clearfix">
+            <dl class="help-list">
+                <dt>
+                    <a href="https://www.quluying.com/member/findpwd#" target="_blank">预订常见问题</a>
+                </dt>
+                <dd>
+                    <a href="https://www.quluying.com/help/show_46.html" target="_blank" rel="nofollow">单房差是什么？</a>
+                    <a href="https://www.quluying.com/help/show_43.html" target="_blank" rel="nofollow">如何获取发票？</a>
+                    <a href="https://www.quluying.com/help/show_16.html" target="_blank" rel="nofollow">预订露营地的问题</a>
+                </dd>
+            </dl>
+            <dl class="help-list">
+                <dt>
+                    <a href="https://www.quluying.com/member/findpwd#" target="_blank">付款方式</a>
+                </dt>
+                <dd>
+                </dd>
+            </dl>
+            <dl class="help-list">
+                <dt>
+                    <a href="https://www.quluying.com/member/findpwd#" target="_blank">加盟合作</a>
+                </dt>
+                <dd>
+                    <a href="https://www.quluying.com/help/show_31.html" target="_blank" rel="nofollow">加盟优势</a>
+                    <a href="https://www.quluying.com/help/show_32.html" target="_blank" rel="nofollow">入驻材料</a>
+                </dd>
+            </dl>
+            <dl class="help-list">
+                <dt>
+                    <a href="https://www.quluying.com/member/findpwd#" target="_blank">其它问题</a>
+                </dt>
+                <dd>
+                    <a href="https://www.quluying.com/help/show_1.html" target="_blank" rel="nofollow">纯玩是什么意思？</a>
+                </dd>
+            </dl>
+            <div class="qr-code">
+                <img src="img/5f26cbff1345b730f65266a8f0672c9e.jpg">
+                <span class="txt">微信扫一扫</span>
+            </div>
+        </div>
+        <hr class="hr-line">
+        <div class="footer-wrap clearfix">
+            <div class="footer-logo fl">
+                <a class="item-tell" href="https://www.quluying.com/">
+                    <img src="img/1e629a328e41545326fffae2687a277c.png"></a>
+            </div>
+            <div class="footer-info fr">
+                <ul class="footer-menu clearfix">
+                    <li>
+                        <a href="https://www.quluying.com/servers/index_1.html" target="_blank" rel="nofollow">关于我们</a>丨
+                    </li>
+                    <li>   </li>
+                    <li>
+                        <a href="https://www.quluying.com/servers/index_12.html" target="_blank" rel="nofollow">广告招商</a>丨
+                    </li>
+                    <li>   </li>
+                    <li>
+                        <a href="https://www.quluying.com/servers/index_2.html" target="_blank" rel="nofollow">联系我们</a>丨
+                    </li>
+                    <li>   </li>
+                    <li>
+                        <a href="https://www.quluying.com/servers/index_4.html" target="_blank" rel="nofollow">支付方式</a>丨
+                    </li>
+                    <li>   </li>
+                    <li>
+                        <a href="https://www.quluying.com/servers/index_11.html" target="_blank" rel="nofollow">新手上路</a>
+                    </li>
+                    <li>   </li>
+                </ul>
+                <div class="foot-edit clearfix">
+                    <p>Copyright © 2018　版权所有　云南网库信息技术有限公司　滇ICP备14003019号
+                        <script type="text/javascript" src="./找回密码-去露营网_files/z_stat.php"></script>
+                        <script src="./找回密码-去露营网_files/core.php" charset="utf-8" type="text/javascript"></script>
+                        <a href="https://www.cnzz.com/stat/website.php?web_id=1275061751" target="_blank" title="站长统计">站长统计</a>
+                    </p>
+                    <p>地址：云南省昆明市小康大道国福现代城3栋18楼　投诉建议邮箱：jianyi@quluying.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--百度自动推送开始-->
+    <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script> <!--360自动收录开始--> <script>(function(){
+var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?d0f2190e19325eaaeb781ca07f0f2212":"https://jspassport.ssl.qhimg.com/11.0.1.js?d0f2190e19325eaaeb781ca07f0f2212";
+document.write('<script src="' + src + '" id="sozz"><\/script>');
+})();
+</script><script src="js/11.0.1.js" id="sozz"></script><script charset="utf-8" src="js/ab77b6ea7f3fbf79.js"></script> <!--360自动收录结束--> <script src="js/qqkefu.js"></script>
+</div>
+    <!--<link type="text/css" href="./找回密码-去露营网_files/saved_resource" rel="stylesheet">-->
+    
+  <link type="text/css" href="css/layer(1).css" rel="stylesheet">
+  
+  <div></div>
+    
+      
+      <div class="st-side-menu-block" style="right:0px">
+        <div class="st-side-menu-list">
+            <div class="st-side-call">
+                <div class="call-set">
+                    <i class="call-close"></i>
+                    <input type="text" class="call-num" id="freekefu_phone" placeholder="请输入您的电话号码">
+                    <input type="submit" class="call-btn" id="freekefu_btn" value="立即免费通话">
+                    <p class="call-txt">输入电话号码，点击免费通话、稍后我们将与您联系，此次通话将不收取您任何费用，请注意接听。</p>
+                </div>
+            </div>
+            <ul class="menu-ul-child">
+                <li>
+                    <span class="side-qq"></span>
+                    <div class="child-block">
+                        <div class="side-online-qq">
+                            <div class="online-tit">在线咨询</div>
+                                                        <dl class="online-group">
+                                <dt>期待与您交流</dt>
+                                <dd class="clearfix">
+                                                                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=23359161&amp;site=qq&amp;menu=yes">营小萌</a>
+                                                                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=50565637&amp;site=qq&amp;menu=yes">营小可</a>
+                                                                    </dd>
+                            </dl>
+                                                   </div>
+                    </div>
+                </li>
+                                <li>
+                    <span class="side-phone"></span>
+                    <div class="child-block">
+                        <div class="side-link-num">客服电话：156 0871 8688</div>
+                    </div>
+                </li>
+                                                <li>
+                    <span class="side-wechat"></span>
+                    <div class="child-block">
+                        <div class="side-wechat-Sweep">
+                            <img src="img/5f26cbff1345b730f65266a8f0672c9e.jpg">
+                            <p>关注官方微信</p>
+                        </div>
+                    </div>
+                </li>
+                                            </ul>
+            <div class="st-side-back-top">TOP</div>
+            <div class="st-side-close"></div>
+        </div>
+        <div class="st-side-flexible-block"></div>
+    </div><!-- 黑色边栏客服 -->
+</body></html>
