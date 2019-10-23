@@ -3,7 +3,7 @@ server:
 eureka:
   client:
     serviceUrl: #服务中心的ip和端口号和路径
-      defaultZone: http://admin:123456@peer1:8761/eureka/,http://admin:123456@peer2:8762/eureka/
+      defaultZone: http://admin:123456@localhost:8761/eureka/
 #页面的前缀后缀
 spring:
   freemarker:
@@ -12,7 +12,7 @@ spring:
   #  连接池相关配置
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/wfx?useSSL=false&serverTimezone=UTC #连接数据库的地址
+      url: jdbc:mysql://localhost:3306/orders?useSSL=false&serverTimezone=UTC #连接数据库的地址
       username: root #数据库的登录帐号
       password: root #数据库的登录密码
       driverClassName: com.mysql.jdbc.Driver
@@ -46,14 +46,14 @@ spring:
       trace:
         enabled: true
 #消息队列
-  rabbitmq:
-    host: localhost #地址
-    port: 15672      #端口
-    username: guest   #用户
-    password: guest    #密码
-    #链路追踪
-  zipkin:
-    base-url: http://localhost:9411  #指定地址IP和端口号
+#  rabbitmq:
+#    host: localhost #地址
+#    port: 15672      #端口
+#    username: guest   #用户
+#    password: guest    #密码
+#    #链路追踪
+#  zipkin:
+#    base-url: http://localhost:9411  #指定地址IP和端口号
 #    在spring Cloud为F版本的时候，已经不需要自己构建Zipkin Server了，只需要下载jar运行即可 java -jar zipkin-server-2.10.1-exec.jar即可
 management:   #bus相关
   endpoints:

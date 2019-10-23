@@ -1,10 +1,30 @@
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/
+
+
 spring:
-  profiles:
-    active: peer1
+#  profiles:
+#    active: peer1
   application:
     name: eureka-server
   zipkin:
     base-url: http://localhost:9411
+
+  security:
+    user:
+      name: admin #登陆用户名
+      password: 123456 #登陆密码
 
 
 #按照官方文档的指示，需要改变etc/hosts，linux系统通过vim /etc/hosts ,加上：

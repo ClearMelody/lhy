@@ -1,9 +1,10 @@
 server:
   port: 9301
+
 eureka:
   client:
     serviceUrl: #服务中心的ip和端口号和路径
-      defaultZone: http://admin:123456@peer1:8761/eureka/,http://admin:123456@peer2:8762/eureka/
+      defaultZone: http://admin:123456@localhost:8761/eureka/
 #服务的名称
 spring:
   application:
@@ -11,7 +12,20 @@ spring:
 #  链路追踪
   zipkin:
     base-url: http://localhost:9411
-    #网管服务
+
+#配置模板相关东西
+  thymeleaf:
+    suffix: .html
+    prefix: classpath:/templates/
+    check-template: true
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+    cache: false
+
+  resources:
+    static-locations: classpath:/META-INF/resourcesesources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+#网管服务()
 zuul:
   routes:
     api-a:
@@ -20,3 +34,19 @@ zuul:
     api-b:
       path: /api-b/**    #以api-开开始的访问路径全部负载到service-feign
       serviceId: service-feign
+
+  host:
+    connect-timeout-millis: 15000 #HTTP连接超时大于Hystrix的超时时间
+    socket-timeout-millis: 60000   #socket超时
+#  ignored-services: "*"
+#  prefix: /aigou
+ribbon:        #设置ribbon的超时时间小于zuul的超时时间
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+
+
+feign:
+  httpclient:
+    connection-timeout: 2000
+    connection-timer-repeat: 3000

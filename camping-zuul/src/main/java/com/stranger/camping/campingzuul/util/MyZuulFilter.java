@@ -37,15 +37,26 @@ public class MyZuulFilter extends ZuulFilter {
         System.out.println("hello, world");
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
+        //获取请求链接
+        String requestURI = request.getRequestURI();
+        //得到token对象
         Object accessToken = request.getParameter("token");
+        //判断链接是都要放行
+        if(requestURI.equals("/api-b/user/findName") ||requestURI.equals("/api-b/user/createImg")){
+            return null;
+        }
+
         if(accessToken == null) {
             ctx.setSendZuulResponse(false); // 设置原来的响应无效
             ctx.setResponseStatusCode(401); // 改变状态码为401
             try {
                 ctx.getResponse().getWriter().write("token is empty");
-            }catch (Exception e){}
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             return null;
         }
+
 
 
         return null;

@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     serviceUrl: #服务中心的ip和端口号和路径
-      defaultZone: http://admin:123456@peer1:8761/eureka/,http://admin:123456@peer2:8762/eureka/
+      defaultZone: http://admin:123456@localhost:8761/eureka/
 
 #服务的名称
 spring:
@@ -13,7 +13,30 @@ spring:
  #链路追踪
   zipkin:
     base-url: http://localhost:9411
+
+
+#  #配置模板相关东西
+#  thymeleaf:
+#    suffix: .html
+#    prefix: classpath:localhost:9301/templates/
+#    check-template: true
+#    encoding: utf-8
+#    servlet:
+#      content-type: text/html
+#    cache: false
+#
+#  resources:
+#    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+    #网管服务()
+
+
 #开启熔断器
 feign:
   hystrix:
     enabled: true
+
+  httpclient:
+    connection-timeout: 2000
+    connection-timer-repeat: 3000
+
+
