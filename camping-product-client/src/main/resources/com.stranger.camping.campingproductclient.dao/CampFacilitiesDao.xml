@@ -17,6 +17,7 @@
     <!--selectfather操作mapper层的具体方法名-->
     <select id="findallbyid" parameterType="int" resultMap="TbOrderUsersMap">
 select cf.*,cfs.id sid,cfs.name_son,cfs.father_id,cfs.product_id from camp_facilities cf ,camp_facilities_son cfs where cf.id=cfs.father_id
-  and cfs.product_id=#{id};
+  and cfs.product_id=#{id}
+   n;
     </select>
 </mapper>
